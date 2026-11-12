@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://78.17.59.117 https://91.217.76.125:8443; base-uri 'none'; form-action 'none'">
+  <title>Кабинет доступа</title>
+  <link rel="stylesheet" href="./site.css">
+  <script src="./launcher.js" defer></script>
+</head>
+<body>
+  <main>
+    <h1>Кабинет доступа</h1>
+    <nav id="cabinet-links" aria-label="Прямые ссылки на кабинет" hidden>
+      <a id="primary" href="https://78.17.59.117/">Основной кабинет <span aria-hidden="true">↗</span></a>
+      <a id="replica" href="https://91.217.76.125:8443/">Резервный кабинет <span aria-hidden="true">↗</span></a>
+    </nav>
+    <noscript>
+      <nav aria-label="Прямые ссылки на кабинет">
+        <a href="https://78.17.59.117/">Основной кабинет <span aria-hidden="true">↗</span></a>
+        <a href="https://91.217.76.125:8443/">Резервный кабинет <span aria-hidden="true">↗</span></a>
+      </nav>
+    </noscript>
+  </main>
+</body>
+</html>

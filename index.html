@@ -6,7 +6,7 @@
   <meta name="referrer" content="no-referrer">
   <meta name="emergency-origin" content="https://d5db0u2fsn83cajoa4a8.fovt0b64.apigw.yandexcloud.net">
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://78.17.59.117 https://91.217.76.125:8443 https://d5db0u2fsn83cajoa4a8.fovt0b64.apigw.yandexcloud.net; base-uri 'none'; form-action 'none'">
+        content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://78.17.59.117 https://d5db0u2fsn83cajoa4a8.fovt0b64.apigw.yandexcloud.net; base-uri 'none'; form-action 'none'">
   <title>Кабинет доступа</title>
   <link rel="stylesheet" href="./site.css">
   <script src="./launcher.js" defer></script>
@@ -16,12 +16,11 @@
     <h1>Кабинет доступа</h1>
     <nav id="cabinet-links" aria-label="Прямые ссылки на кабинет" hidden>
       <a id="primary" href="https://78.17.59.117/">Основной кабинет <span aria-hidden="true">↗</span></a>
-      <a id="replica" href="https://91.217.76.125:8443/">Резервный кабинет <span aria-hidden="true">↗</span></a>
+      <p id="reserve-offline">Сейчас резервный сервер недоступен. Обратитесь к администратору для его активации, затем обновите страницу.</p>
     </nav>
     <noscript>
       <nav aria-label="Прямые ссылки на кабинет">
         <a href="https://78.17.59.117/">Основной кабинет <span aria-hidden="true">↗</span></a>
-        <a href="https://91.217.76.125:8443/">Резервный кабинет <span aria-hidden="true">↗</span></a>
       </nav>
     </noscript>
   </main>

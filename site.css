@@ -66,3 +66,12 @@ a:hover {
   outline: 3px solid #278661;
   outline-offset: 3px;
 }
+
+.emergency-admin fieldset { display: grid; gap: .75rem; margin: 0; padding: 0; border: 0; }
+.emergency-admin label { display: grid; gap: .3rem; }
+.emergency-admin input, .emergency-admin button {
+  box-sizing: border-box; width: 100%; min-height: 2.75rem; padding: .55rem .75rem; font: inherit;
+  border: 1px solid #c3d5cb; border-radius: .55rem;
+}
+.emergency-admin button { color: white; background: #174c38; cursor: pointer; }
+.emergency-admin button:disabled { opacity: .6; cursor: default; }

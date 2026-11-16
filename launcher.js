@@ -42,7 +42,7 @@ async function connect() {
     const replicaCheck = replica ? readyAddress(replica, controller.signal).catch(() => null) : null;
     const emergencyCheck = activeEmergency(controller.signal).catch(() => null);
     try {
-        const address = (await emergencyCheck) ?? (await primaryCheck) ?? (await replicaCheck);
+        const address = (await primaryCheck) ?? (await emergencyCheck) ?? (await replicaCheck);
         if (address) {
             window.location.replace(address);
         } else {

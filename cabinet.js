@@ -55,7 +55,11 @@ function start() {
 
     async function api(path, { method = "GET", body } = {}) {
         const headers = { Accept: "application/json" };
-        if (session) headers.Authorization = `Bearer ${session}`;
+        if (session) {
+            const authorization = new URL(backend).hostname === "functions.yandexcloud.net"
+                ? "X-ArcPass-Authorization" : "Authorization";
+            headers[authorization] = `Bearer ${session}`;
+        }
         try {
             const response = await fetch(endpoint(backend, path), {
                 method, body, headers, cache: "no-store", credentials: "omit", redirect: "error",

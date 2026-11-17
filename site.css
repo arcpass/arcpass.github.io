@@ -98,5 +98,7 @@ a:hover {
 .action-feedback[data-tone="warning"]:not(:empty) { color: #743d16; background: #fff3e5; }
 .portal details { border-top: 1px solid #d2ddd7; padding: .6rem 0; }
 .portal summary { cursor: pointer; font-weight: 650; }
+.portal .manual-link summary { color: #4d6259; font-size: .9rem; }
+.portal .manual-link textarea { display: block; margin-top: .5rem; }
 .portal li { margin-top: .4rem; }
 .portal li a { display: inline; padding: 0; border: 0; text-decoration: underline; }

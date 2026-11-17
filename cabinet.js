@@ -119,7 +119,6 @@ function start() {
             byId("reserve-expires").textContent = fmt(link.expires_at);
         }
         byId("connection-guide").hidden = !(hasConfig || link);
-        byId("guide-copy").dataset.copy = hasConfig ? "config" : "reserve-config";
         for (const details of document.querySelectorAll("[data-platform]")) {
             details.hidden = data.platform !== "any" && data.platform !== details.dataset.platform;
         }
@@ -198,10 +197,11 @@ function start() {
             showAction(feedback);
             try {
                 await navigator.clipboard.writeText(field.value);
-                showAction(feedback, "Ссылка скопирована в буфер обмена.", "success");
+                showAction(feedback, "Ссылка скопирована. Вставьте её в VPN-приложение по инструкции ниже.", "success");
                 reset = setTimeout(() => showAction(feedback), 5000);
             } catch {
-                field.focus({ preventScroll: true });
+                field.closest("details").open = true;
+                field.focus();
                 field.select();
                 showAction(feedback, "Ссылка выделена. Скопируйте её вручную.", "warning");
             }

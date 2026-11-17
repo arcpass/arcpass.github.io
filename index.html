@@ -8,8 +8,8 @@
   <meta name="emergency-origin" content="https://functions.yandexcloud.net/d4el0c9fdaprakf7lnal">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://78.17.59.117 https://functions.yandexcloud.net; base-uri 'none'; form-action 'none'">
   <title>Кабинет доступа</title>
-  <link rel="stylesheet" href="./site.css?v=feedback-1">
-  <script src="./cabinet.js?v=5" type="module"></script>
+  <link rel="stylesheet" href="./site.css?v=connection-1">
+  <script src="./cabinet.js?v=6" type="module"></script>
 </head>
 <body class="portal">
   <main class="portal-shell">
@@ -31,41 +31,46 @@
         <p id="temporary" class="portal-notice" hidden>Работает временный резерв. Запросите запасную ссылку ниже.</p>
         <p id="config-missing" class="portal-notice" hidden>Ссылка ещё не назначена. Обратитесь к администратору.</p>
         <div id="primary-config" class="portal-form" hidden>
+          <h2>Основное подключение</h2>
           <p id="updated" hidden></p>
-          <label for="config">Ссылка для подключения</label>
-          <textarea id="config" spellcheck="false" rows="4" readonly></textarea>
           <div>
-            <button type="button" data-copy="config">Копировать ссылку</button>
+            <button type="button" data-copy="config">Копировать основную ссылку</button>
             <p class="action-feedback" role="status"></p>
           </div>
+          <details class="manual-link">
+            <summary>Показать основную ссылку</summary>
+            <textarea id="config" aria-label="Основная ссылка для подключения" spellcheck="false" rows="4" readonly></textarea>
+          </details>
         </div>
       </div>
     </section>
     <section id="reserve" hidden>
       <h2>Запасное подключение</h2>
+      <p>Используйте, если основное подключение не работает.</p>
       <p>Ссылка действует до 24 часов в пределах срока подписки и работы временного сервера.</p>
       <p id="cooldown" hidden></p>
       <button id="request-reserve" type="button">Запросить запасную ссылку</button>
       <p id="reserve-notice" class="action-feedback" role="status"></p>
       <div id="reserve-link" class="portal-form" hidden>
         <p>Действует до <strong id="reserve-expires"></strong></p>
-        <label for="reserve-config">Запасная ссылка для подключения</label>
-        <textarea id="reserve-config" spellcheck="false" rows="4" readonly></textarea>
         <div>
           <button type="button" data-copy="reserve-config">Копировать запасную ссылку</button>
           <p class="action-feedback" role="status"></p>
         </div>
+        <details class="manual-link">
+          <summary>Показать запасную ссылку</summary>
+          <textarea id="reserve-config" aria-label="Запасная ссылка для подключения" spellcheck="false" rows="4" readonly></textarea>
+        </details>
       </div>
     </section>
-    <section id="connection-guide" hidden>
-      <h2>Как подключить</h2>
-      <button id="guide-copy" type="button" data-copy="config">Скопировать ссылку для подключения</button>
-      <p class="action-feedback" role="status"></p>
+    <section id="connection-guide" aria-labelledby="connection-guide-heading" hidden>
+      <h2 id="connection-guide-heading">Как вставить ссылку и включить VPN</h2>
+      <p><strong>Скопируйте ссылку</strong> кнопкой в блоке нужного подключения выше. Затем выберите своё устройство и вставьте эту ссылку в VPN-приложение.</p>
       <details data-platform="ios">
         <summary>iPhone / iPad · V2RC</summary>
         <ol>
           <li><a href="https://apps.apple.com/ru/app/v2rc/id6748362312" target="_blank" rel="noopener">Установите V2RC из App Store</a>.</li>
-          <li>Откройте V2RC и нажмите <strong>+</strong>, затем <strong>Clipboard Import</strong>.</li>
+          <li>Откройте V2RC. Нажмите <strong>+</strong> и выберите <strong>Clipboard Import</strong> («Импорт из буфера обмена»), чтобы вставить скопированную ссылку.</li>
           <li>Выберите добавленный профиль и включите VPN.</li>
         </ol>
       </details>
@@ -73,7 +78,7 @@
         <summary>Android · v2rayNG</summary>
         <ol>
           <li><a href="https://github.com/2dust/v2rayNG/releases/latest" target="_blank" rel="noopener">Установите v2rayNG</a>.</li>
-          <li>Нажмите <strong>+</strong> и выберите <strong>Import from Clipboard</strong>.</li>
+          <li>Откройте v2rayNG. Нажмите <strong>+</strong> и выберите <strong>Import from Clipboard</strong> («Импорт из буфера обмена»), чтобы вставить скопированную ссылку.</li>
           <li>Выберите профиль и нажмите круглую кнопку запуска.</li>
         </ol>
       </details>
@@ -81,7 +86,7 @@
         <summary>Windows · v2rayN</summary>
         <ol>
           <li><a href="https://github.com/2dust/v2rayN/releases/latest" target="_blank" rel="noopener">Скачайте v2rayN для своей архитектуры</a>.</li>
-          <li>Запустите от имени администратора и нажмите <strong>Ctrl+V</strong>, чтобы импортировать профиль.</li>
+          <li>Запустите v2rayN от имени администратора. В окне приложения нажмите <strong>Ctrl+V</strong>, чтобы вставить скопированную ссылку и добавить профиль.</li>
           <li>Выберите профиль. Включите <strong>Global</strong> и <strong>Enable TUN</strong>.</li>
         </ol>
       </details>

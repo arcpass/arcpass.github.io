@@ -4,6 +4,8 @@ const form = document.getElementById("launch");
 const fields = document.getElementById("launch-fields");
 const status = document.getElementById("status");
 const feedback = document.getElementById("launch-feedback");
+const launchButton = form.querySelector("button");
+const launchLabel = launchButton.textContent;
 const configuredOrigin = document.querySelector('meta[name="emergency-origin"]').content;
 const labels = {
     idle: "Резерв выключен.", ordering: "Заказываем VPS.", provision: "Устанавливаем резервный кабинет.",
@@ -30,9 +32,9 @@ function show(state) {
     fields.disabled = !idle.has(state.status) || submitting;
 }
 
-function error(message) {
+function showFeedback(message, tone = "") {
+    feedback.dataset.tone = tone;
     feedback.textContent = message;
-    feedback.hidden = !message;
 }
 
 function run() {
@@ -43,6 +45,7 @@ function run() {
     const controller = new URL(configuredOrigin);
     let refreshSequence = 0;
     async function refresh() {
+        if (submitting) return;
         const sequence = ++refreshSequence;
         try {
             const response = await call(controller, "/status");
@@ -64,16 +67,21 @@ function run() {
         submitting = true;
         refreshSequence += 1;
         fields.disabled = true;
-        error("");
+        launchButton.textContent = "Отправляем запрос…";
+        launchButton.setAttribute("aria-busy", "true");
+        showFeedback("Отправляем запрос на запуск резерва.");
         try {
             const response = await call(controller, "/launch", body);
-            if (response.status === 403) error("Проверьте пароль запуска.");
-            else if (response.status === 429) error("Слишком много попыток. Повторите через минуту.");
-            else if (response.status !== 202) error("Контроллер не принял запрос. Проверьте настройки и повторите попытку.");
+            if (response.status === 202) showFeedback("Запрос принят. Статус запуска появится выше.", "success");
+            else if (response.status === 403) showFeedback("Проверьте пароль запуска.", "warning");
+            else if (response.status === 429) showFeedback("Слишком много попыток. Повторите через минуту.", "warning");
+            else showFeedback("Контроллер не принял запрос. Проверьте настройки и повторите попытку.", "warning");
         } catch {
-            error("Статус запуска неизвестен. Дождитесь обновления перед повторной попыткой.");
+            showFeedback("Проверяем, получил ли контроллер запрос. Дождитесь обновления статуса.", "warning");
         } finally {
             submitting = false;
+            launchButton.textContent = launchLabel;
+            launchButton.removeAttribute("aria-busy");
             await refresh();
         }
     });

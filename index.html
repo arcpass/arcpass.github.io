@@ -8,8 +8,8 @@
   <meta name="emergency-origin" content="https://functions.yandexcloud.net/d4el0c9fdaprakf7lnal">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://78.17.59.117 https://functions.yandexcloud.net; base-uri 'none'; form-action 'none'">
   <title>Кабинет доступа</title>
-  <link rel="stylesheet" href="./site.css?v=cabinet-1">
-  <script src="./cabinet.js?v=4" type="module"></script>
+  <link rel="stylesheet" href="./site.css?v=feedback-1">
+  <script src="./cabinet.js?v=5" type="module"></script>
 </head>
 <body class="portal">
   <main class="portal-shell">
@@ -34,26 +34,33 @@
           <p id="updated" hidden></p>
           <label for="config">Ссылка для подключения</label>
           <textarea id="config" spellcheck="false" rows="4" readonly></textarea>
-          <button type="button" data-copy="config">Копировать ссылку</button>
+          <div>
+            <button type="button" data-copy="config">Копировать ссылку</button>
+            <p class="action-feedback" role="status"></p>
+          </div>
         </div>
       </div>
     </section>
     <section id="reserve" hidden>
       <h2>Запасное подключение</h2>
       <p>Ссылка действует до 24 часов в пределах срока подписки и работы временного сервера.</p>
-      <p id="reserve-notice" class="portal-notice" role="status" hidden></p>
       <p id="cooldown" hidden></p>
       <button id="request-reserve" type="button">Запросить запасную ссылку</button>
+      <p id="reserve-notice" class="action-feedback" role="status"></p>
       <div id="reserve-link" class="portal-form" hidden>
         <p>Действует до <strong id="reserve-expires"></strong></p>
         <label for="reserve-config">Запасная ссылка для подключения</label>
         <textarea id="reserve-config" spellcheck="false" rows="4" readonly></textarea>
-        <button type="button" data-copy="reserve-config">Копировать запасную ссылку</button>
+        <div>
+          <button type="button" data-copy="reserve-config">Копировать запасную ссылку</button>
+          <p class="action-feedback" role="status"></p>
+        </div>
       </div>
     </section>
     <section id="connection-guide" hidden>
       <h2>Как подключить</h2>
       <button id="guide-copy" type="button" data-copy="config">Скопировать ссылку для подключения</button>
+      <p class="action-feedback" role="status"></p>
       <details data-platform="ios">
         <summary>iPhone / iPad · V2RC</summary>
         <ol>

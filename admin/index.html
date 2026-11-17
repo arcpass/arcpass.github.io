@@ -9,14 +9,13 @@
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://functions.yandexcloud.net; base-uri 'none'; form-action 'none'">
   <title>Запуск резерва · ArcPass</title>
-  <link rel="stylesheet" href="../site.css">
-  <script src="./admin.js?v=bridge" defer></script>
+  <link rel="stylesheet" href="../site.css?v=feedback-1">
+  <script src="./admin.js?v=feedback-1" defer></script>
 </head>
 <body>
   <main class="emergency-admin">
     <h1>Запуск резерва</h1>
     <p id="status" role="status">Подключаемся к контроллеру…</p>
-    <p id="launch-feedback" role="alert" hidden></p>
     <form id="launch" method="post">
       <fieldset id="launch-fields" disabled>
         <label>Срок аренды, часов
@@ -28,6 +27,7 @@
         <button type="submit">Запустить резерв</button>
       </fieldset>
     </form>
+    <p id="launch-feedback" class="action-feedback" role="status"></p>
     <p><a href="../">Кабинет пользователя</a></p>
   </main>
 </body>

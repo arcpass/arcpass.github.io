@@ -43,6 +43,8 @@ function start() {
     const loginButton = loginForm.querySelector("button");
     const accessCode = byId("access-code");
     const reserveButton = byId("request-reserve");
+    const reserveLabel = reserveButton.textContent;
+    const reserveFeedback = byId("reserve-notice");
     const date = new Intl.DateTimeFormat("ru-RU", { dateStyle: "medium", timeStyle: "short" });
     const fmt = stamp => date.format(new Date(stamp * 1000));
     let backend, session, profile, refreshTimer;
@@ -51,6 +53,11 @@ function start() {
         const field = byId(id);
         field.textContent = message ?? "";
         field.hidden = !message;
+    }
+
+    function showAction(field, message = "", tone = "") {
+        field.dataset.tone = tone;
+        field.textContent = message;
     }
 
     async function api(path, { method = "GET", body } = {}) {
@@ -74,7 +81,7 @@ function start() {
         }
     }
 
-    function render(data) {
+    function render(data, requested = false) {
         clearTimeout(refreshTimer);
         profile = data;
         loginForm.hidden = !!data;
@@ -97,7 +104,13 @@ function start() {
         byId("config-missing").hidden = hasConfig || temporary;
         byId("temporary").hidden = !temporary;
         notice("updated", hasConfig && data.config_at ? `Обновлено ${fmt(data.config_at)}` : "");
-        notice("reserve-notice", NOTICES[data.reserve_notice]);
+        if (requested || !reserveButton.disabled) {
+            const warning = NOTICES[data.reserve_notice];
+            if (warning) showAction(reserveFeedback, warning, "warning");
+            else if (!requested) showAction(reserveFeedback);
+            else if (link) showAction(reserveFeedback, "Запасная ссылка готова.", "success");
+            else showAction(reserveFeedback, "Запасная ссылка пока недоступна.", "warning");
+        }
         notice("cooldown", next ? `Следующий запрос доступен ${fmt(next)}.` : "");
         reserveButton.hidden = !!next;
         if (link) {
@@ -141,17 +154,24 @@ function start() {
 
     reserveButton.addEventListener("click", async () => {
         reserveButton.disabled = true;
+        reserveButton.setAttribute("aria-busy", "true");
+        reserveButton.textContent = "Запрашиваем ссылку…";
+        showAction(reserveFeedback, "Отправляем запрос на резервный сервер.");
         try {
-            render(await api("/reserve", { method: "POST" }));
-            notice("feedback", "");
+            render(await api("/reserve", { method: "POST" }), true);
         } catch (error) {
-            if ([0, 401, 503].includes(error.status)) {
+            if (error.status === 401) {
                 session = null;
                 render(null);
+                notice("feedback", error.message);
+                accessCode.focus();
+            } else {
+                showAction(reserveFeedback, error.message, "warning");
             }
-            notice("feedback", error.message);
         } finally {
             reserveButton.disabled = false;
+            reserveButton.removeAttribute("aria-busy");
+            reserveButton.textContent = reserveLabel;
         }
     });
 
@@ -169,16 +189,21 @@ function start() {
     });
 
     for (const button of document.querySelectorAll("[data-copy]")) {
+        const feedback = button.nextElementSibling;
+        let reset;
         button.addEventListener("click", async () => {
             const field = byId(button.dataset.copy);
             if (!field.value) return;
+            clearTimeout(reset);
+            showAction(feedback);
             try {
                 await navigator.clipboard.writeText(field.value);
-                notice("feedback", "Ссылка скопирована.");
+                showAction(feedback, "Ссылка скопирована в буфер обмена.", "success");
+                reset = setTimeout(() => showAction(feedback), 5000);
             } catch {
-                field.focus();
+                field.focus({ preventScroll: true });
                 field.select();
-                notice("feedback", "Ссылка выделена. Скопируйте её вручную.");
+                showAction(feedback, "Ссылка выделена. Скопируйте её вручную.", "warning");
             }
         });
     }

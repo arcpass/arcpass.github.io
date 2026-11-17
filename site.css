@@ -92,6 +92,10 @@ a:hover {
 .portal .quiet { width: auto; color: #174c38; background: #fff; }
 .portal small, .portal #updated { color: #4d6259; }
 .portal-notice { padding: .6rem .75rem; border-radius: .5rem; background: #edf5f0; }
+.action-feedback:empty { margin: 0; }
+.action-feedback:not(:empty) { margin: .5rem 0; padding: .6rem .75rem; border-radius: .5rem; background: #edf5f0; }
+.action-feedback[data-tone="success"] { color: #174c38; font-weight: 650; }
+.action-feedback[data-tone="warning"]:not(:empty) { color: #743d16; background: #fff3e5; }
 .portal details { border-top: 1px solid #d2ddd7; padding: .6rem 0; }
 .portal summary { cursor: pointer; font-weight: 650; }
 .portal li { margin-top: .4rem; }

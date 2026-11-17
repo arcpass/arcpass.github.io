@@ -4,25 +4,81 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
+  <meta name="cabinet-origin" content="https://78.17.59.117">
   <meta name="emergency-origin" content="https://d5db0u2fsn83cajoa4a8.fovt0b64.apigw.yandexcloud.net">
-  <meta http-equiv="Content-Security-Policy"
-        content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://78.17.59.117 https://d5db0u2fsn83cajoa4a8.fovt0b64.apigw.yandexcloud.net; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https:; base-uri 'none'; form-action 'none'">
   <title>Кабинет доступа</title>
-  <link rel="stylesheet" href="./site.css">
-  <script src="./launcher.js?v=primary-first" defer></script>
+  <link rel="stylesheet" href="./site.css?v=cabinet-1">
+  <script src="./cabinet.js?v=1" type="module"></script>
 </head>
-<body>
-  <main>
-    <h1>Кабинет доступа</h1>
-    <nav id="cabinet-links" aria-label="Прямые ссылки на кабинет" hidden>
-      <a id="primary" href="https://78.17.59.117/">Основной кабинет <span aria-hidden="true">↗</span></a>
-      <p id="reserve-offline">Сейчас резервный сервер недоступен. Обратитесь к администратору для его активации, затем обновите страницу.</p>
-    </nav>
-    <noscript>
-      <nav aria-label="Прямые ссылки на кабинет">
-        <a href="https://78.17.59.117/">Основной кабинет <span aria-hidden="true">↗</span></a>
-      </nav>
-    </noscript>
+<body class="portal">
+  <main class="portal-shell">
+    <section>
+      <header class="portal-header">
+        <h1>Кабинет доступа</h1>
+        <button id="logout" type="button" class="quiet" hidden>Выйти</button>
+      </header>
+      <p id="feedback" class="portal-notice" role="status" hidden></p>
+      <form id="login-form" class="portal-form" method="post">
+        <label for="access-code">Код доступа</label>
+        <input id="access-code" type="password" name="code" autocomplete="current-password" autocapitalize="none" spellcheck="false" maxlength="6" required aria-describedby="code-hint">
+        <small id="code-hint">Введите код из 6 символов, который выдал администратор.</small>
+        <button type="submit" disabled>Войти</button>
+      </form>
+      <noscript><p>Включите JavaScript, чтобы войти в кабинет.</p></noscript>
+      <div id="account" hidden>
+        <p>Окончание доступа <strong id="deadline"></strong></p>
+        <p id="temporary" class="portal-notice" hidden>Работает временный резерв. Запросите запасную ссылку ниже.</p>
+        <p id="config-missing" class="portal-notice" hidden>Ссылка ещё не назначена. Обратитесь к администратору.</p>
+        <div id="primary-config" class="portal-form" hidden>
+          <p id="updated" hidden></p>
+          <label for="config">Ссылка для подключения</label>
+          <textarea id="config" spellcheck="false" rows="4" readonly></textarea>
+          <button type="button" data-copy="config">Копировать ссылку</button>
+        </div>
+      </div>
+    </section>
+    <section id="reserve" hidden>
+      <h2>Запасное подключение</h2>
+      <p>Ссылка действует до 24 часов в пределах срока подписки и работы временного сервера.</p>
+      <p id="reserve-notice" class="portal-notice" role="status" hidden></p>
+      <p id="cooldown" hidden></p>
+      <button id="request-reserve" type="button">Запросить запасную ссылку</button>
+      <div id="reserve-link" class="portal-form" hidden>
+        <p>Действует до <strong id="reserve-expires"></strong></p>
+        <label for="reserve-config">Запасная ссылка для подключения</label>
+        <textarea id="reserve-config" spellcheck="false" rows="4" readonly></textarea>
+        <button type="button" data-copy="reserve-config">Копировать запасную ссылку</button>
+      </div>
+    </section>
+    <section id="connection-guide" hidden>
+      <h2>Как подключить</h2>
+      <button id="guide-copy" type="button" data-copy="config">Скопировать ссылку для подключения</button>
+      <details data-platform="ios">
+        <summary>iPhone / iPad · V2RC</summary>
+        <ol>
+          <li><a href="https://apps.apple.com/ru/app/v2rc/id6748362312" target="_blank" rel="noopener">Установите V2RC из App Store</a>.</li>
+          <li>Откройте V2RC и нажмите <strong>+</strong>, затем <strong>Clipboard Import</strong>.</li>
+          <li>Выберите добавленный профиль и включите VPN.</li>
+        </ol>
+      </details>
+      <details data-platform="android">
+        <summary>Android · v2rayNG</summary>
+        <ol>
+          <li><a href="https://github.com/2dust/v2rayNG/releases/latest" target="_blank" rel="noopener">Установите v2rayNG</a>.</li>
+          <li>Нажмите <strong>+</strong> и выберите <strong>Import from Clipboard</strong>.</li>
+          <li>Выберите профиль и нажмите круглую кнопку запуска.</li>
+        </ol>
+      </details>
+      <details data-platform="windows">
+        <summary>Windows · v2rayN</summary>
+        <ol>
+          <li><a href="https://github.com/2dust/v2rayN/releases/latest" target="_blank" rel="noopener">Скачайте v2rayN для своей архитектуры</a>.</li>
+          <li>Запустите от имени администратора и нажмите <strong>Ctrl+V</strong>, чтобы импортировать профиль.</li>
+          <li>Выберите профиль. Включите <strong>Global</strong> и <strong>Enable TUN</strong>.</li>
+        </ol>
+      </details>
+    </section>
   </main>
 </body>
 </html>

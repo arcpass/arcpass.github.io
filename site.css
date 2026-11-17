@@ -75,3 +75,24 @@ a:hover {
 }
 .emergency-admin button { color: white; background: #174c38; cursor: pointer; }
 .emergency-admin button:disabled { opacity: .6; cursor: default; }
+
+.portal { display: block; padding: clamp(1rem, 4vw, 2.5rem) 1rem; }
+.portal [hidden] { display: none !important; }
+.portal .portal-shell { display: grid; gap: 1rem; width: min(100%, 36rem); margin: 0 auto; padding: 0; border: 0; background: transparent; }
+.portal section { min-width: 0; padding: clamp(1.1rem, 4vw, 1.8rem); border: 1px solid #ccdcd4; border-radius: 1rem; background: #fff; }
+.portal-header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.portal h2 { margin: 0 0 .65rem; font-size: 1.2rem; }
+.portal p { margin: .65rem 0; line-height: 1.5; }
+.portal-form { display: grid; gap: .55rem; }
+.portal-form label { font-weight: 650; }
+.portal input, .portal textarea, .portal button { box-sizing: border-box; width: 100%; min-height: 2.75rem; padding: .55rem .75rem; border: 1px solid #9db3a8; border-radius: .55rem; font: inherit; }
+.portal textarea { resize: vertical; overflow-wrap: anywhere; background: #f8faf9; }
+.portal button { color: #fff; background: #174c38; cursor: pointer; font-weight: 650; }
+.portal button:disabled { opacity: .6; cursor: default; }
+.portal .quiet { width: auto; color: #174c38; background: #fff; }
+.portal small, .portal #updated { color: #4d6259; }
+.portal-notice { padding: .6rem .75rem; border-radius: .5rem; background: #edf5f0; }
+.portal details { border-top: 1px solid #d2ddd7; padding: .6rem 0; }
+.portal summary { cursor: pointer; font-weight: 650; }
+.portal li { margin-top: .4rem; }
+.portal li a { display: inline; padding: 0; border: 0; text-decoration: underline; }

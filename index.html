@@ -9,7 +9,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://78.17.59.117 https://functions.yandexcloud.net; base-uri 'none'; form-action 'none'">
   <title>Кабинет доступа</title>
   <link rel="stylesheet" href="./site.css?v=connection-1">
-  <script src="./cabinet.js?v=6" type="module"></script>
+  <script src="./cabinet.js?v=7" type="module"></script>
 </head>
 <body class="portal">
   <main class="portal-shell">
@@ -47,12 +47,12 @@
     <section id="reserve" hidden>
       <h2>Запасное подключение</h2>
       <p>Используйте, если основное подключение не работает.</p>
-      <p>Ссылка действует до 24 часов в пределах срока подписки и работы временного сервера.</p>
+      <p id="reserve-validity">Ссылка действует, пока работает текущий резервный сервер и активна ваша подписка.</p>
       <p id="cooldown" hidden></p>
       <button id="request-reserve" type="button">Запросить запасную ссылку</button>
       <p id="reserve-notice" class="action-feedback" role="status"></p>
       <div id="reserve-link" class="portal-form" hidden>
-        <p>Действует до <strong id="reserve-expires"></strong></p>
+        <p>Ссылка действует до <strong><time id="reserve-expires"></time></strong>.</p>
         <div>
           <button type="button" data-copy="reserve-config">Копировать запасную ссылку</button>
           <p class="action-feedback" role="status"></p>

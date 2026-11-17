@@ -46,6 +46,7 @@ function start() {
     const reserveLabel = reserveButton.textContent;
     const reserveFeedback = byId("reserve-notice");
     const date = new Intl.DateTimeFormat("ru-RU", { dateStyle: "medium", timeStyle: "short" });
+    const moscowDate = new Intl.DateTimeFormat("ru-RU", { dateStyle: "short", timeStyle: "short", timeZone: "Europe/Moscow" });
     const fmt = stamp => date.format(new Date(stamp * 1000));
     let backend, session, profile, refreshTimer;
 
@@ -113,10 +114,14 @@ function start() {
         }
         notice("cooldown", next ? `Следующий запрос доступен ${fmt(next)}.` : "");
         reserveButton.hidden = !!next;
+        byId("reserve-validity").hidden = !!link;
         if (link) {
             byId("reserve-link").hidden = false;
             byId("reserve-config").value = link.config;
-            byId("reserve-expires").textContent = fmt(link.expires_at);
+            const expiry = new Date(link.expires_at * 1000);
+            const expiryField = byId("reserve-expires");
+            expiryField.dateTime = expiry.toISOString();
+            expiryField.textContent = moscowDate.format(expiry) + " МСК";
         }
         byId("connection-guide").hidden = !(hasConfig || link);
         for (const details of document.querySelectorAll("[data-platform]")) {

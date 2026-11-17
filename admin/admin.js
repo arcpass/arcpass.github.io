@@ -15,7 +15,9 @@ const idle = new Set(["idle", "finished", "rejected"]);
 let submitting = false;
 
 async function call(controller, path, body) {
-    return fetch(new URL(path, controller), {
+    const target = controller.hostname === "functions.yandexcloud.net" ? new URL(controller) : new URL(path, controller);
+    if (target.hostname === "functions.yandexcloud.net") target.searchParams.set("route", path.slice(1));
+    return fetch(target, {
         method: body ? "POST" : "GET", body, credentials: "omit", cache: "no-store", redirect: "error",
         signal: AbortSignal.timeout(10000),
     });

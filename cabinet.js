@@ -4,10 +4,17 @@ const NOTICES = {
     unavailable: "Резервный сервер не подтвердил запрос. Повторите попытку позже.",
 };
 
+function endpoint(base, action) {
+    const url = new URL(base);
+    if (url.hostname !== "functions.yandexcloud.net") return base + action;
+    url.searchParams.set("route", `reserve-${action.slice(1)}`);
+    return url.href;
+}
+
 export async function chooseCabinet(primary, controller, send = fetch) {
     const healthy = async base => {
         try {
-            const response = await send(`${base}/health`, {
+            const response = await send(endpoint(base, "/health"), {
                 cache: "no-store", credentials: "omit", redirect: "error", signal: AbortSignal.timeout(3500),
             });
             return response.ok && (await response.json()).status === "ok";
@@ -16,7 +23,7 @@ export async function chooseCabinet(primary, controller, send = fetch) {
         }
     };
     const main = `${primary}${API}`;
-    const reserve = `${controller}/reserve-cabinet`;
+    const reserve = new URL(controller).hostname === "functions.yandexcloud.net" ? controller : `${controller}/reserve-cabinet`;
     if (await healthy(main)) return main;
     return await healthy(reserve) ? reserve : null;
 }
@@ -50,7 +57,7 @@ function start() {
         const headers = { Accept: "application/json" };
         if (session) headers.Authorization = `Bearer ${session}`;
         try {
-            const response = await fetch(`${backend}${path}`, {
+            const response = await fetch(endpoint(backend, path), {
                 method, body, headers, cache: "no-store", credentials: "omit", redirect: "error",
                 signal: AbortSignal.timeout(25000),
             });

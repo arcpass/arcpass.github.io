@@ -4,38 +4,21 @@ const NOTICES = {
     unavailable: "Резервный сервер не подтвердил запрос. Повторите попытку позже.",
 };
 
-export function readyReserve(state, timestamp = Date.now()) {
-    if (state?.status !== "ready" || !Number.isSafeInteger(state.until) || state.until <= timestamp
-        || typeof state.url !== "string") return null;
-    try {
-        const target = new URL(state.url);
-        if (state.url !== `${target.origin}/` || target.protocol !== "https:" || target.port
-            || !/^\d+\.\d+\.\d+\.\d+$/.test(target.hostname)) return null;
-        const [a, b] = target.hostname.split(".").map(Number);
-        if (a === 0 || a === 10 || a === 127 || a >= 224 || (a === 100 && b >= 64 && b <= 127)
-            || (a === 169 && b === 254) || (a === 172 && b >= 16 && b <= 31) || (a === 192 && b === 168)) return null;
-        return target.origin;
-    } catch {
-        return null;
-    }
-}
-
 export async function chooseCabinet(primary, controller, send = fetch) {
-    const get = async (origin, path) => {
-        if (!origin) return null;
+    const healthy = async base => {
         try {
-            const response = await send(`${origin}${path}`, {
+            const response = await send(`${base}/health`, {
                 cache: "no-store", credentials: "omit", redirect: "error", signal: AbortSignal.timeout(3500),
             });
-            return response.ok ? await response.json() : null;
+            return response.ok && (await response.json()).status === "ok";
         } catch {
-            return null;
+            return false;
         }
     };
-    const reserveCheck = get(controller, "/status");
-    if ((await get(primary, `${API}/health`))?.status === "ok") return primary;
-    const reserve = readyReserve(await reserveCheck);
-    return (await get(reserve, `${API}/health`))?.status === "ok" ? reserve : null;
+    const main = `${primary}${API}`;
+    const reserve = `${controller}/reserve-cabinet`;
+    if (await healthy(main)) return main;
+    return await healthy(reserve) ? reserve : null;
 }
 
 class CabinetError extends Error {
@@ -55,7 +38,7 @@ function start() {
     const reserveButton = byId("request-reserve");
     const date = new Intl.DateTimeFormat("ru-RU", { dateStyle: "medium", timeStyle: "short" });
     const fmt = stamp => date.format(new Date(stamp * 1000));
-    let origin, session, profile, refreshTimer;
+    let backend, session, profile, refreshTimer;
 
     function notice(id, message) {
         const field = byId(id);
@@ -67,7 +50,7 @@ function start() {
         const headers = { Accept: "application/json" };
         if (session) headers.Authorization = `Bearer ${session}`;
         try {
-            const response = await fetch(`${origin}${API}${path}`, {
+            const response = await fetch(`${backend}${path}`, {
                 method, body, headers, cache: "no-store", credentials: "omit", redirect: "error",
                 signal: AbortSignal.timeout(25000),
             });
@@ -130,8 +113,8 @@ function start() {
         loginButton.disabled = true;
         notice("feedback", "Подключаемся к кабинету…");
         try {
-            origin = await chooseCabinet(primary, controller);
-            if (!origin) throw new CabinetError(0, "Кабинет временно недоступен. Повторите попытку.");
+            backend = await chooseCabinet(primary, controller);
+            if (!backend) throw new CabinetError(0, "Кабинет временно недоступен. Повторите попытку.");
             ({ session } = await api("/login", { method: "POST", body: new URLSearchParams({ password: code }) }));
             render(await api("/account"));
             notice("feedback", "");

@@ -8,8 +8,8 @@
   <meta name="emergency-origin" content="https://functions.yandexcloud.net/d4el0c9fdaprakf7lnal">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://194.226.139.8 https://functions.yandexcloud.net; base-uri 'none'; form-action 'none'">
   <title>Кабинет доступа</title>
-  <link rel="stylesheet" href="./site.css?v=connection-1">
-  <script src="./cabinet.js?v=8" type="module"></script>
+  <link rel="stylesheet" href="./site.css?v=methods-2">
+  <script src="./cabinet.js?v=9" type="module"></script>
 </head>
 <body class="portal">
   <main class="portal-shell">
@@ -31,32 +31,118 @@
         <p id="temporary" class="portal-notice" hidden>Работает временный резерв. Запросите запасную ссылку ниже.</p>
         <p id="config-missing" class="portal-notice" hidden>Ссылка ещё не назначена. Обратитесь к администратору.</p>
         <div id="primary-config" class="portal-form" hidden>
-          <h2>Основное подключение</h2>
-          <div id="subscription-block" hidden>
-            <p>Добавьте подписку в VPN-приложение и включите её автообновление. При замене сервера ссылка останется прежней.</p>
+          <div id="subscription-block" class="primary-method" hidden>
+            <p class="method-label">Основной способ</p>
+            <h2>Подписка</h2>
+            <p>Есть два способа подключения: подписка и обычная ссылка. Достаточно выбрать один. Обычная ссылка — в блоке «Прежний способ» ниже.</p>
+            <p>Это постоянная ссылка для загрузки настроек VPN. Дополнительной оплаты за неё нет.</p>
+            <p>Добавьте её один раз. При замене сервера обновите подписку в приложении — ссылка останется прежней.</p>
             <div>
-              <button type="button" data-copy="subscription">Копировать подписку</button>
+              <button type="button" data-copy="subscription">Копировать ссылку подписки</button>
               <p class="action-feedback" role="status"></p>
             </div>
             <details class="manual-link">
-              <summary>Показать подписку</summary>
+              <summary>Показать ссылку подписки</summary>
               <textarea id="subscription" aria-label="Ссылка подписки" spellcheck="false" rows="4" readonly></textarea>
             </details>
+            <div id="subscription-guide" class="connection-guide">
+              <h3>Как подключиться по подписке</h3>
+              <p>Скопируйте ссылку подписки кнопкой выше и выберите своё устройство.</p>
+
+  
+  <details data-platform="ios">
+    <summary>iPhone / iPad · V2RC</summary>
+    <ol>
+      <li><a href="https://apps.apple.com/ru/app/v2rc/id6748362312" target="_blank" rel="noopener noreferrer">Установите V2RC из App Store</a> или откройте уже установленное приложение.</li>
+      <li>Выберите добавление <strong>подписки по URL</strong>. Вставьте скопированную <strong>ссылку подписки</strong>, назовите её <strong>ArcPass</strong> и сохраните.</li>
+      <li>Обновите эту подписку, чтобы загрузить подключения. Выберите подключение ArcPass и включите VPN. При первом запуске разрешите добавить конфигурацию VPN.</li>
+      <li>Для получения новых настроек обновляйте подписку в приложении. Включите её автообновление, если оно доступно в вашей версии V2RC.</li>
+    </ol>
+  </details>
+  
+  
+  <details data-platform="android">
+    <summary>Android · v2rayNG</summary>
+    <ol>
+      <li><a href="https://github.com/2dust/v2rayNG/releases/latest" target="_blank" rel="noopener noreferrer">Установите v2rayNG</a> или откройте уже установленное приложение.</li>
+      <li>Откройте меню <strong>☰ → Группы</strong> (Subscription group settings) и нажмите <strong>+</strong>. Укажите название <strong>ArcPass</strong>, вставьте <strong>ссылку подписки</strong> в поле URL и сохраните.</li>
+      <li>Вернитесь к списку подключений и выберите <strong>Обновить подписку</strong> в меню приложения. Выберите появившееся подключение ArcPass и нажмите кнопку запуска VPN. Подтвердите запрос Android.</li>
+      <li>В настройках включите <strong>Автоматически обновлять подписки</strong>. Для группы ArcPass также должно быть включено <strong>Использовать автообновление</strong>.</li>
+    </ol>
+  </details>
+  
+  
+  <details data-platform="windows">
+    <summary>Windows · v2rayN</summary>
+    <ol>
+      <li><a href="https://github.com/2dust/v2rayN/releases/latest" target="_blank" rel="noopener noreferrer">Скачайте v2rayN для Windows</a>, распакуйте архив и запустите приложение от имени администратора.</li>
+      <li>Откройте <strong>Subscription group settings</strong> («Настройки групп подписок») и нажмите <strong>Add</strong> («Добавить»). Укажите название <strong>ArcPass</strong>, вставьте <strong>ссылку подписки</strong> в поле адреса и сохраните.</li>
+      <li>В меню подписок выберите обновление без прокси, чтобы загрузить подключения. Выберите появившееся подключение ArcPass, затем включите <strong>Global</strong> и <strong>Enable TUN</strong>.</li>
+      <li>В настройках группы ArcPass задайте интервал автообновления, например <strong>60 минут</strong>.</li>
+    </ol>
+  </details>
+  
+
+            </div>
           </div>
-          <p id="updated" hidden></p>
-          <div>
-            <button type="button" data-copy="config">Копировать основную ссылку</button>
-            <p class="action-feedback" role="status"></p>
-          </div>
-          <details class="manual-link">
-            <summary>Показать основную ссылку</summary>
-            <textarea id="config" aria-label="Основная ссылка для подключения" spellcheck="false" rows="4" readonly></textarea>
+          <details id="ordinary-connection" class="alternative-method">
+            <summary>Обычная ссылка — прежний способ</summary>
+            <div class="method-content">
+              <p class="method-label">Дополнительный вариант</p>
+              <p>Привычная ссылка на одно подключение. Используйте её, если вам удобнее прежний способ или приложение не поддерживает подписки.</p>
+              <p>При замене сервера нужно заново скопировать обычную ссылку из кабинета и импортировать её в приложение.</p>
+              <p id="updated" hidden></p>
+              <div>
+                <button type="button" data-copy="config">Копировать обычную ссылку</button>
+                <p class="action-feedback" role="status"></p>
+              </div>
+              <details class="manual-link">
+                <summary>Показать обычную ссылку</summary>
+                <textarea id="config" aria-label="Обычная ссылка для подключения" spellcheck="false" rows="4" readonly></textarea>
+              </details>
+              <div id="connection-guide" class="connection-guide" hidden>
+                <h3>Как подключиться по обычной ссылке</h3>
+                <p>Скопируйте обычную ссылку кнопкой выше и выберите своё устройство.</p>
+
+  
+  <details data-platform="ios">
+    <summary>iPhone / iPad · V2RC</summary>
+    <ol>
+      <li><a href="https://apps.apple.com/ru/app/v2rc/id6748362312" target="_blank" rel="noopener noreferrer">Установите V2RC из App Store</a> или откройте уже установленное приложение.</li>
+      <li>Откройте список конфигураций, нажмите <strong>+</strong> и выберите <strong>Clipboard Import</strong> («Импорт из буфера обмена»). Так вы добавите скопированную <strong>обычную ссылку</strong>.</li>
+      <li>Выберите добавленное подключение и включите VPN. При первом запуске разрешите добавить конфигурацию VPN.</li>
+    </ol>
+  </details>
+  
+  
+  <details data-platform="android">
+    <summary>Android · v2rayNG</summary>
+    <ol>
+      <li><a href="https://github.com/2dust/v2rayNG/releases/latest" target="_blank" rel="noopener noreferrer">Установите v2rayNG</a> или откройте уже установленное приложение.</li>
+      <li>Нажмите <strong>+</strong> и выберите <strong>Import from Clipboard</strong> («Импорт из буфера обмена»). Так вы добавите скопированную <strong>обычную ссылку</strong>.</li>
+      <li>Выберите добавленное подключение и нажмите кнопку запуска VPN. Подтвердите запрос Android.</li>
+    </ol>
+  </details>
+  
+  
+  <details data-platform="windows">
+    <summary>Windows · v2rayN</summary>
+    <ol>
+      <li><a href="https://github.com/2dust/v2rayN/releases/latest" target="_blank" rel="noopener noreferrer">Скачайте v2rayN для Windows</a>, распакуйте архив и запустите приложение от имени администратора.</li>
+      <li>В главном окне нажмите <strong>Ctrl+V</strong>, чтобы добавить скопированную <strong>обычную ссылку</strong>.</li>
+      <li>Выберите добавленное подключение. Включите <strong>Global</strong> и <strong>Enable TUN</strong>.</li>
+    </ol>
+  </details>
+  
+
+              </div>
+            </div>
           </details>
         </div>
       </div>
     </section>
     <section id="reserve" hidden>
-      <h2>Запасное подключение</h2>
+      <h2>Запасной сервер</h2>
       <p>Используйте, если основное подключение не работает.</p>
       <p id="reserve-validity">Ссылка действует, пока работает текущий резервный сервер и активна ваша подписка.</p>
       <p id="cooldown" hidden></p>
@@ -72,35 +158,43 @@
           <summary>Показать запасную ссылку</summary>
           <textarea id="reserve-config" aria-label="Запасная ссылка для подключения" spellcheck="false" rows="4" readonly></textarea>
         </details>
+        <div id="reserve-guide" class="connection-guide">
+          <h3>Как подключиться к запасному серверу</h3>
+          <p>Скопируйте запасную ссылку кнопкой выше. Она добавляется как обычная ссылка, через импорт из буфера обмена.</p>
+
+  
+  <details data-platform="ios">
+    <summary>iPhone / iPad · V2RC</summary>
+    <ol>
+      <li><a href="https://apps.apple.com/ru/app/v2rc/id6748362312" target="_blank" rel="noopener noreferrer">Установите V2RC из App Store</a> или откройте уже установленное приложение.</li>
+      <li>Откройте список конфигураций, нажмите <strong>+</strong> и выберите <strong>Clipboard Import</strong> («Импорт из буфера обмена»). Так вы добавите скопированную <strong>обычную ссылку</strong>.</li>
+      <li>Выберите добавленное подключение и включите VPN. При первом запуске разрешите добавить конфигурацию VPN.</li>
+    </ol>
+  </details>
+  
+  
+  <details data-platform="android">
+    <summary>Android · v2rayNG</summary>
+    <ol>
+      <li><a href="https://github.com/2dust/v2rayNG/releases/latest" target="_blank" rel="noopener noreferrer">Установите v2rayNG</a> или откройте уже установленное приложение.</li>
+      <li>Нажмите <strong>+</strong> и выберите <strong>Import from Clipboard</strong> («Импорт из буфера обмена»). Так вы добавите скопированную <strong>обычную ссылку</strong>.</li>
+      <li>Выберите добавленное подключение и нажмите кнопку запуска VPN. Подтвердите запрос Android.</li>
+    </ol>
+  </details>
+  
+  
+  <details data-platform="windows">
+    <summary>Windows · v2rayN</summary>
+    <ol>
+      <li><a href="https://github.com/2dust/v2rayN/releases/latest" target="_blank" rel="noopener noreferrer">Скачайте v2rayN для Windows</a>, распакуйте архив и запустите приложение от имени администратора.</li>
+      <li>В главном окне нажмите <strong>Ctrl+V</strong>, чтобы добавить скопированную <strong>обычную ссылку</strong>.</li>
+      <li>Выберите добавленное подключение. Включите <strong>Global</strong> и <strong>Enable TUN</strong>.</li>
+    </ol>
+  </details>
+  
+
+        </div>
       </div>
-    </section>
-    <section id="connection-guide" aria-labelledby="connection-guide-heading" hidden>
-      <h2 id="connection-guide-heading">Как вставить ссылку и включить VPN</h2>
-      <p><strong>Скопируйте ссылку</strong> кнопкой в блоке нужного подключения выше. Затем выберите своё устройство и вставьте эту ссылку в VPN-приложение.</p>
-      <details data-platform="ios">
-        <summary>iPhone / iPad · V2RC</summary>
-        <ol>
-          <li><a href="https://apps.apple.com/ru/app/v2rc/id6748362312" target="_blank" rel="noopener">Установите V2RC из App Store</a>.</li>
-          <li>Откройте V2RC. Нажмите <strong>+</strong> и выберите <strong>Clipboard Import</strong> («Импорт из буфера обмена»), чтобы вставить скопированную ссылку.</li>
-          <li>Выберите добавленный профиль и включите VPN.</li>
-        </ol>
-      </details>
-      <details data-platform="android">
-        <summary>Android · v2rayNG</summary>
-        <ol>
-          <li><a href="https://github.com/2dust/v2rayNG/releases/latest" target="_blank" rel="noopener">Установите v2rayNG</a>.</li>
-          <li>Откройте v2rayNG. Нажмите <strong>+</strong> и выберите <strong>Import from Clipboard</strong> («Импорт из буфера обмена»), чтобы вставить скопированную ссылку.</li>
-          <li>Выберите профиль и нажмите круглую кнопку запуска.</li>
-        </ol>
-      </details>
-      <details data-platform="windows">
-        <summary>Windows · v2rayN</summary>
-        <ol>
-          <li><a href="https://github.com/2dust/v2rayN/releases/latest" target="_blank" rel="noopener">Скачайте v2rayN для своей архитектуры</a>.</li>
-          <li>Запустите v2rayN от имени администратора. В окне приложения нажмите <strong>Ctrl+V</strong>, чтобы вставить скопированную ссылку и добавить профиль.</li>
-          <li>Выберите профиль. Включите <strong>Global</strong> и <strong>Enable TUN</strong>.</li>
-        </ol>
-      </details>
     </section>
   </main>
 </body>

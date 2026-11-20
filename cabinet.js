@@ -84,7 +84,10 @@ function start() {
 
     function render(data, requested = false) {
         clearTimeout(refreshTimer);
+        const resetMethods = !data || !profile || profile.subscription !== data.subscription;
         profile = data;
+        if (resetMethods) byId("ordinary-connection").open = !!data?.config && !data?.subscription;
+        for (const feedback of document.querySelectorAll("[data-copy] + .action-feedback")) showAction(feedback);
         loginForm.hidden = !!data;
         byId("account").hidden = !data;
         byId("logout").hidden = !data;
@@ -125,7 +128,7 @@ function start() {
             expiryField.dateTime = expiry.toISOString();
             expiryField.textContent = moscowDate.format(expiry) + " МСК";
         }
-        byId("connection-guide").hidden = !(hasConfig || link);
+        byId("connection-guide").hidden = !hasConfig;
         for (const details of document.querySelectorAll("[data-platform]")) {
             details.hidden = data.platform !== "any" && data.platform !== details.dataset.platform;
         }
@@ -204,7 +207,12 @@ function start() {
             showAction(feedback);
             try {
                 await navigator.clipboard.writeText(field.value);
-                showAction(feedback, "Ссылка скопирована. Вставьте её в VPN-приложение по инструкции ниже.", "success");
+                const message = button.dataset.copy === "subscription"
+                    ? "Подписка скопирована. Добавьте её по URL по инструкции в этом блоке."
+                    : button.dataset.copy === "config"
+                        ? "Обычная ссылка скопирована. Импортируйте её из буфера обмена по инструкции в этом блоке."
+                        : "Ссылка запасного сервера скопирована. Инструкция — в этом блоке.";
+                showAction(feedback, message, "success");
                 reset = setTimeout(() => showAction(feedback), 5000);
             } catch {
                 field.closest("details").open = true;

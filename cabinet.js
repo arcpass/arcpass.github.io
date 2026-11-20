@@ -89,6 +89,8 @@ function start() {
         byId("account").hidden = !data;
         byId("logout").hidden = !data;
         byId("config").value = data?.config ?? "";
+        if (byId("subscription")) byId("subscription").value = data?.subscription ?? "";
+        if (byId("subscription-block")) byId("subscription-block").hidden = !data?.subscription;
         byId("reserve-config").value = "";
         byId("reserve").hidden = !data?.reserve_enabled;
         byId("reserve-link").hidden = true;

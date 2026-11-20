@@ -9,7 +9,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://194.226.139.8 https://functions.yandexcloud.net; base-uri 'none'; form-action 'none'">
   <title>Кабинет доступа</title>
   <link rel="stylesheet" href="./site.css?v=connection-1">
-  <script src="./cabinet.js?v=7" type="module"></script>
+  <script src="./cabinet.js?v=8" type="module"></script>
 </head>
 <body class="portal">
   <main class="portal-shell">
@@ -32,6 +32,17 @@
         <p id="config-missing" class="portal-notice" hidden>Ссылка ещё не назначена. Обратитесь к администратору.</p>
         <div id="primary-config" class="portal-form" hidden>
           <h2>Основное подключение</h2>
+          <div id="subscription-block" hidden>
+            <p>Добавьте подписку в VPN-приложение и включите её автообновление. При замене сервера ссылка останется прежней.</p>
+            <div>
+              <button type="button" data-copy="subscription">Копировать подписку</button>
+              <p class="action-feedback" role="status"></p>
+            </div>
+            <details class="manual-link">
+              <summary>Показать подписку</summary>
+              <textarea id="subscription" aria-label="Ссылка подписки" spellcheck="false" rows="4" readonly></textarea>
+            </details>
+          </div>
           <p id="updated" hidden></p>
           <div>
             <button type="button" data-copy="config">Копировать основную ссылку</button>

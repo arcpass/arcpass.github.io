@@ -27,7 +27,7 @@ async function call(controller, path, body) {
 
 function show(state) {
     const end = !idle.has(state.status) && Number.isFinite(state.until)
-        ? ` Срок аренды до ${dateFormat.format(state.until)} МСК.` : "";
+        ? ` Работает до ${dateFormat.format(state.until)} МСК.` : "";
     status.textContent = (labels[state.status] ?? "Статус резерва неизвестен.") + end;
     fields.disabled = !idle.has(state.status) || submitting;
 }

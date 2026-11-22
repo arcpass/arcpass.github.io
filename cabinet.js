@@ -1,15 +1,8 @@
 const API = "/api/cabinet";
-function endpoint(base, action) {
-    const url = new URL(base);
-    if (url.hostname !== "functions.yandexcloud.net") return base + action;
-    url.searchParams.set("route", `reserve-${action.slice(1)}`);
-    return url.href;
-}
-
-export async function chooseCabinet(primary, controller, send = fetch) {
+export async function chooseCabinet(primary, send = fetch) {
     const healthy = async base => {
         try {
-            const response = await send(endpoint(base, "/health"), {
+            const response = await send(base + "/health", {
                 cache: "no-store", credentials: "omit", redirect: "error", signal: AbortSignal.timeout(3500),
             });
             return response.ok && (await response.json()).status === "ok";
@@ -18,9 +11,7 @@ export async function chooseCabinet(primary, controller, send = fetch) {
         }
     };
     const main = `${primary}${API}`;
-    const reserve = new URL(controller).hostname === "functions.yandexcloud.net" ? controller : `${controller}/reserve-cabinet`;
-    if (await healthy(main)) return main;
-    return await healthy(reserve) ? reserve : null;
+    return await healthy(main) ? main : null;
 }
 
 class CabinetError extends Error {
@@ -33,7 +24,6 @@ class CabinetError extends Error {
 function start() {
     const byId = id => document.getElementById(id);
     const primary = document.querySelector('meta[name="cabinet-origin"]').content;
-    const controller = document.querySelector('meta[name="emergency-origin"]').content;
     const loginForm = byId("login-form");
     const loginButton = loginForm.querySelector("button");
     const accessCode = byId("access-code");
@@ -58,12 +48,10 @@ function start() {
     async function api(path, { method = "GET", body } = {}) {
         const headers = { Accept: "application/json" };
         if (session) {
-            const authorization = new URL(backend).hostname === "functions.yandexcloud.net"
-                ? "X-ArcPass-Authorization" : "Authorization";
-            headers[authorization] = `Bearer ${session}`;
+            headers.Authorization = `Bearer ${session}`;
         }
         try {
-            const response = await fetch(endpoint(backend, path), {
+            const response = await fetch(backend + path, {
                 method, body, headers, cache: "no-store", credentials: "omit", redirect: "error",
                 signal: AbortSignal.timeout(25000),
             });
@@ -98,7 +86,6 @@ function start() {
         byId("deadline").textContent = data.deadline;
         byId("primary-config").hidden = !hasConfig;
         byId("config-missing").hidden = hasConfig;
-        byId("temporary").hidden = true;
         notice("updated", hasConfig && data.config_at ? `Обновлено ${fmt(data.config_at)}` : "");
         notice("problem-cooldown", next ? `Следующее сообщение можно отправить ${fmt(next)}.` : "");
         reportButton.disabled = !!next;
@@ -117,7 +104,7 @@ function start() {
         loginButton.disabled = true;
         notice("feedback", "Подключаемся к кабинету…");
         try {
-            backend = await chooseCabinet(primary, controller);
+            backend = await chooseCabinet(primary);
             if (!backend) throw new CabinetError(0, "Кабинет временно недоступен. Повторите попытку.");
             ({ session } = await api("/login", { method: "POST", body: new URLSearchParams({ password: code }) }));
             render(await api("/account"));
@@ -186,9 +173,7 @@ function start() {
                 await navigator.clipboard.writeText(field.value);
                 const message = button.dataset.copy === "subscription"
                     ? "Подписка скопирована. Добавьте её по URL по инструкции в этом блоке."
-                    : button.dataset.copy === "config"
-                        ? "Обычная ссылка скопирована. Импортируйте её из буфера обмена по инструкции в этом блоке."
-                        : "Ссылка запасного сервера скопирована. Инструкция — в этом блоке.";
+                    : "Обычная ссылка скопирована. Импортируйте её из буфера обмена по инструкции в этом блоке.";
                 showAction(feedback, message, "success");
                 reset = setTimeout(() => showAction(feedback), 5000);
             } catch {

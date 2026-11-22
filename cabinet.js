@@ -1,9 +1,4 @@
 const API = "/api/cabinet";
-const NOTICES = {
-    inactive: "Сейчас резервный сервер не активен. Обратитесь к администратору для его активации, затем повторите запрос.",
-    unavailable: "Резервный сервер не подтвердил запрос. Повторите попытку позже.",
-};
-
 function endpoint(base, action) {
     const url = new URL(base);
     if (url.hostname !== "functions.yandexcloud.net") return base + action;
@@ -42,11 +37,10 @@ function start() {
     const loginForm = byId("login-form");
     const loginButton = loginForm.querySelector("button");
     const accessCode = byId("access-code");
-    const reserveButton = byId("request-reserve");
-    const reserveLabel = reserveButton.textContent;
-    const reserveFeedback = byId("reserve-notice");
+    const reportButton = byId("report-problem");
+    const reportLabel = reportButton.textContent;
+    const reportFeedback = byId("problem-notice");
     const date = new Intl.DateTimeFormat("ru-RU", { dateStyle: "medium", timeStyle: "short" });
-    const moscowDate = new Intl.DateTimeFormat("ru-RU", { dateStyle: "short", timeStyle: "short", timeZone: "Europe/Moscow" });
     const fmt = stamp => date.format(new Date(stamp * 1000));
     let backend, session, profile, refreshTimer;
 
@@ -82,7 +76,7 @@ function start() {
         }
     }
 
-    function render(data, requested = false) {
+    function render(data) {
         clearTimeout(refreshTimer);
         const resetMethods = !data || !profile || profile.subscription !== data.subscription;
         profile = data;
@@ -94,48 +88,25 @@ function start() {
         byId("config").value = data?.config ?? "";
         if (byId("subscription")) byId("subscription").value = data?.subscription ?? "";
         if (byId("subscription-block")) byId("subscription-block").hidden = !data?.subscription;
-        byId("reserve-config").value = "";
-        byId("reserve").hidden = !data?.reserve_enabled;
-        byId("reserve-link").hidden = true;
+        byId("problem-report").hidden = !data;
         byId("connection-guide").hidden = true;
-        if (!data) return;
+        if (!data) { showAction(reportFeedback); notice("problem-cooldown", ""); return; }
 
         const hasConfig = !!data.config;
-        const temporary = data.temporary && data.reserve_enabled;
         const timestamp = Date.now() / 1000;
-        const link = data.reserve?.expires_at > timestamp ? data.reserve : null;
-        const next = data.next_at > timestamp ? data.next_at : null;
+        const next = data.problem_report?.next_at > timestamp ? data.problem_report.next_at : null;
         byId("deadline").textContent = data.deadline;
         byId("primary-config").hidden = !hasConfig;
-        byId("config-missing").hidden = hasConfig || temporary;
-        byId("temporary").hidden = !temporary;
+        byId("config-missing").hidden = hasConfig;
+        byId("temporary").hidden = true;
         notice("updated", hasConfig && data.config_at ? `Обновлено ${fmt(data.config_at)}` : "");
-        if (requested || !reserveButton.disabled) {
-            const warning = NOTICES[data.reserve_notice];
-            if (warning) showAction(reserveFeedback, warning, "warning");
-            else if (!requested) showAction(reserveFeedback);
-            else if (link) showAction(reserveFeedback, "Запасная ссылка готова.", "success");
-            else showAction(reserveFeedback, "Запасная ссылка пока недоступна.", "warning");
-        }
-        notice("cooldown", next ? `Следующий запрос доступен ${fmt(next)}.` : "");
-        reserveButton.hidden = !!next;
-        byId("reserve-validity").hidden = !!link;
-        if (link) {
-            byId("reserve-link").hidden = false;
-            byId("reserve-config").value = link.config;
-            const expiry = new Date(link.expires_at * 1000);
-            const expiryField = byId("reserve-expires");
-            expiryField.dateTime = expiry.toISOString();
-            expiryField.textContent = moscowDate.format(expiry) + " МСК";
-        }
+        notice("problem-cooldown", next ? `Следующее сообщение можно отправить ${fmt(next)}.` : "");
+        reportButton.disabled = !!next;
         byId("connection-guide").hidden = !hasConfig;
         for (const details of document.querySelectorAll("[data-platform]")) {
             details.hidden = data.platform !== "any" && data.platform !== details.dataset.platform;
         }
-        if (link || next) {
-            const wake = Math.min(link?.expires_at ?? Infinity, next ?? Infinity);
-            refreshTimer = setTimeout(() => render(profile), Math.max(0, wake * 1000 - Date.now()));
-        }
+        if (next) refreshTimer = setTimeout(() => render(profile), Math.max(0, next * 1000 - Date.now()));
     }
 
     loginForm.addEventListener("submit", async event => {
@@ -161,13 +132,19 @@ function start() {
         }
     });
 
-    reserveButton.addEventListener("click", async () => {
-        reserveButton.disabled = true;
-        reserveButton.setAttribute("aria-busy", "true");
-        reserveButton.textContent = "Запрашиваем ссылку…";
-        showAction(reserveFeedback, "Отправляем запрос на резервный сервер.");
+    reportButton.addEventListener("click", async () => {
+        if (reportButton.disabled) return;
+        reportButton.disabled = true;
+        reportButton.setAttribute("aria-busy", "true");
+        reportButton.textContent = "Отправляем сообщение…";
+        showAction(reportFeedback, "Сохраняем обращение администратору.");
         try {
-            render(await api("/reserve", { method: "POST" }), true);
+            const result = await api("/report-problem", { method: "POST" });
+            profile.problem_report = result;
+            render(profile);
+            showAction(reportFeedback, result.accepted
+                ? "Сообщение сохранено и будет отправлено администратору."
+                : "Вы уже сообщили о проблеме. Повторное сообщение будет доступно через несколько минут.", "success");
         } catch (error) {
             if (error.status === 401) {
                 session = null;
@@ -175,12 +152,12 @@ function start() {
                 notice("feedback", error.message);
                 accessCode.focus();
             } else {
-                showAction(reserveFeedback, error.message, "warning");
+                showAction(reportFeedback, error.message, "warning");
             }
         } finally {
-            reserveButton.disabled = false;
-            reserveButton.removeAttribute("aria-busy");
-            reserveButton.textContent = reserveLabel;
+            reportButton.disabled = !!profile?.problem_report?.next_at && profile.problem_report.next_at > Date.now() / 1000;
+            reportButton.removeAttribute("aria-busy");
+            reportButton.textContent = reportLabel;
         }
     });
 

@@ -9,7 +9,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://194.226.139.8 https://functions.yandexcloud.net; base-uri 'none'; form-action 'none'">
   <title>Кабинет доступа</title>
   <link rel="stylesheet" href="./site.css?v=methods-2">
-  <script src="./cabinet.js?v=9" type="module"></script>
+  <script src="./cabinet.js?v=10" type="module"></script>
 </head>
 <body class="portal">
   <main class="portal-shell">
@@ -141,60 +141,12 @@
         </div>
       </div>
     </section>
-    <section id="reserve" hidden>
-      <h2>Запасной сервер</h2>
-      <p>Используйте, если основное подключение не работает.</p>
-      <p id="reserve-validity">Ссылка действует, пока работает текущий резервный сервер и активна ваша подписка.</p>
-      <p id="cooldown" hidden></p>
-      <button id="request-reserve" type="button">Запросить запасную ссылку</button>
-      <p id="reserve-notice" class="action-feedback" role="status"></p>
-      <div id="reserve-link" class="portal-form" hidden>
-        <p>Ссылка действует до <strong><time id="reserve-expires"></time></strong>.</p>
-        <div>
-          <button type="button" data-copy="reserve-config">Копировать запасную ссылку</button>
-          <p class="action-feedback" role="status"></p>
-        </div>
-        <details class="manual-link">
-          <summary>Показать запасную ссылку</summary>
-          <textarea id="reserve-config" aria-label="Запасная ссылка для подключения" spellcheck="false" rows="4" readonly></textarea>
-        </details>
-        <div id="reserve-guide" class="connection-guide">
-          <h3>Как подключиться к запасному серверу</h3>
-          <p>Скопируйте запасную ссылку кнопкой выше. Она добавляется как обычная ссылка, через импорт из буфера обмена.</p>
-
-
-  <details data-platform="ios">
-    <summary>iPhone / iPad · V2RC</summary>
-    <ol>
-      <li><a href="https://apps.apple.com/ru/app/v2rc/id6748362312" target="_blank" rel="noopener noreferrer">Установите V2RC из App Store</a> или откройте уже установленное приложение.</li>
-      <li>Откройте список конфигураций, нажмите <strong>+</strong> и выберите <strong>Clipboard Import</strong> («Импорт из буфера обмена»). Так вы добавите скопированную <strong>обычную ссылку</strong>.</li>
-      <li>Выберите добавленное подключение и включите VPN. При первом запуске разрешите добавить конфигурацию VPN.</li>
-    </ol>
-  </details>
-
-
-  <details data-platform="android">
-    <summary>Android · v2rayNG</summary>
-    <ol>
-      <li><a href="https://github.com/2dust/v2rayNG/releases/latest" target="_blank" rel="noopener noreferrer">Установите v2rayNG</a> или откройте уже установленное приложение.</li>
-      <li>Нажмите <strong>+</strong> и выберите <strong>Import from Clipboard</strong> («Импорт из буфера обмена»). Так вы добавите скопированную <strong>обычную ссылку</strong>.</li>
-      <li>Выберите добавленное подключение и нажмите кнопку запуска VPN. Подтвердите запрос Android.</li>
-    </ol>
-  </details>
-
-
-  <details data-platform="windows">
-    <summary>Windows · v2rayN</summary>
-    <ol>
-      <li><a href="https://github.com/2dust/v2rayN/releases/latest" target="_blank" rel="noopener noreferrer">Скачайте v2rayN для Windows</a>, распакуйте архив и запустите приложение от имени администратора.</li>
-      <li>В главном окне нажмите <strong>Ctrl+V</strong>, чтобы добавить скопированную <strong>обычную ссылку</strong>.</li>
-      <li>Выберите добавленное подключение. Включите <strong>Global</strong> и <strong>Enable TUN</strong>.</li>
-    </ol>
-  </details>
-
-
-        </div>
-      </div>
+    <section id="problem-report" hidden>
+      <h2>Не работает подключение?</h2>
+      <p>Сообщите администратору, если VPN не подключается или не открывает сайты.</p>
+      <button id="report-problem" type="button">Сообщить о проблеме</button>
+      <p id="problem-notice" class="action-feedback" role="status"></p>
+      <p id="problem-cooldown" hidden></p>
     </section>
   </main>
 </body>

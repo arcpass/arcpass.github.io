@@ -7,7 +7,7 @@
   <meta name="cabinet-origin" content="https://194.226.139.8">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src https://194.226.139.8; base-uri 'none'; form-action 'none'">
   <title>Кабинет доступа</title>
-  <link rel="stylesheet" href="./site.css?v=cleanup-1">
+  <link rel="stylesheet" href="./site.css?v=guides-3">
   <script src="./cabinet.js?v=login-recovery-2" type="module"></script>
 </head>
 <body class="portal">
@@ -53,12 +53,12 @@
     <ol>
       <li><a href="https://apps.apple.com/ru/app/v2rc/id6748362312" target="_blank" rel="noopener noreferrer">Установите V2RC из App Store</a> или откройте уже установленное приложение.</li>
       <li>В кабинете нажмите <strong>«Копировать ссылку подписки»</strong>, затем перейдите в V2RC.</li>
-      <li>На главном экране V2RC нажмите верхнюю строку с глобусом <strong>«Please import a config first»</strong>. Если подключение уже добавлено, в этой строке будет его название.</li>
-      <li>На экране <strong>Config List</strong> нажмите <strong>Import Config</strong> («Импортировать»). Если список уже заполнен, нажмите <strong>+</strong> справа сверху.</li>
-      <li>На экране <strong>Import Config</strong> выберите <strong>Subscription</strong>. В поле <strong>Subscription Name</strong> введите название, например <strong>ArcPass</strong>. В поле <strong>Subscription URL</strong> вставьте скопированную ссылку подписки. Нажмите внизу <strong>Import Subscription</strong> и дождитесь загрузки списка подключений.</li>
-      <li>В списке <strong>Config List</strong> нажмите самое верхнее подключение — <strong>Connection</strong>.</li>
+      <li>На главном экране V2RC нажмите верхнюю строку с глобусом <strong>«Please import a config first»</strong>. Если подключение уже добавлено, в этой строке будет его название.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/home.png" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/home.png" alt="Главный экран V2RC: строка выбора подключения" loading="lazy" decoding="async"></a></details></li>
+      <li>На экране <strong>Config List</strong> нажмите <strong>Import Config</strong> («Импортировать»). Если список уже заполнен, нажмите <strong>+</strong> справа сверху.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/import-list.png" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/import-list.png" alt="Config List: кнопка Import Config" loading="lazy" decoding="async"></a></details></li>
+      <li>На экране <strong>Import Config</strong> выберите <strong>Subscription</strong>. В поле <strong>Subscription Name</strong> введите название, например <strong>ArcPass</strong>. В поле <strong>Subscription URL</strong> вставьте скопированную ссылку подписки. Нажмите внизу <strong>Import Subscription</strong> и дождитесь загрузки списка подключений.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/subscription.png" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/subscription.png" alt="Subscription: название, URL и кнопка импорта" loading="lazy" decoding="async"></a></details></li>
+      <li>В списке <strong>Config List</strong> нажмите самое верхнее подключение — <strong>Connection</strong>.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/subscription-list.png" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/subscription-list.png" alt="Выберите верхнее подключение Connection" loading="lazy" decoding="async"></a></details></li>
       <li>Вернитесь на главный экран стрелкой <strong>‹</strong> слева сверху, если он не открылся автоматически. Проверьте, что в верхней строке выбрано <strong>Connection</strong>. Нажмите большую круглую кнопку <strong>Tap to connect</strong>. При первом запуске разрешите iOS добавить конфигурацию VPN.</li>
-      <li>Дождитесь зелёной надписи <strong>Internet OK</strong> под кнопкой. Подключение готово. Если отображается только <strong>Connected</strong>, дождитесь результата проверки интернета.</li>
+      <li>Дождитесь зелёной надписи <strong>Internet OK</strong> под кнопкой. Подключение готово. Если отображается только <strong>Connected</strong>, дождитесь результата проверки интернета.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/internet-ok.png" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/internet-ok.png" alt="Успешная проверка: Internet OK" loading="lazy" decoding="async"></a></details></li>
     </ol>
   </details>
 
@@ -110,9 +110,13 @@
   <details data-platform="ios">
     <summary>iPhone / iPad · V2RC</summary>
     <ol>
-      <li><a href="https://apps.apple.com/ru/app/v2rc/id6748362312" target="_blank" rel="noopener noreferrer">Установите V2RC из App Store</a> или откройте уже установленное приложение.</li>
-      <li>Откройте список конфигураций, нажмите <strong>+</strong> и выберите <strong>Clipboard Import</strong> («Импорт из буфера обмена»). Так вы добавите скопированную <strong>обычную ссылку</strong>.</li>
-      <li>Выберите добавленное подключение и включите VPN. При первом запуске разрешите добавить конфигурацию VPN.</li>
+      <li>В кабинете раскройте блок <strong>«Прежний способ»</strong> и нажмите <strong>«Копировать обычную ссылку»</strong>. Откройте V2RC.</li>
+      <li>На главном экране нажмите верхнюю строку с глобусом <strong>Please import a config first</strong> (или название уже выбранного подключения).<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/home.png" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/home.png" alt="Главный экран: откройте список подключений" loading="lazy" decoding="async"></a></details></li>
+      <li>На экране <strong>Config List</strong> нажмите <strong>Import Config</strong>. Если подключения уже есть, нажмите <strong>+</strong> справа сверху.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/import-list.png" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/import-list.png" alt="Нажмите Import Config" loading="lazy" decoding="async"></a></details></li>
+      <li>Выберите <strong>URL Import</strong>. В поле <strong>Config Name</strong> введите название, например <strong>arcpass</strong>. В поле <strong>Config URL</strong> вставьте скопированную <strong>обычную ссылку</strong>. Нажмите <strong>Add Config</strong>. Для этого способа не выбирайте Subscription.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/url-import.png" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/url-import.png" alt="URL Import: имя, обычная ссылка и Add Config" loading="lazy" decoding="async"></a></details></li>
+      <li>В списке <strong>Config List</strong> нажмите добавленное подключение с указанным вами названием — в примере <strong>arcpass</strong>.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/ordinary-list.png" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/ordinary-list.png" alt="Выберите добавленное подключение arcpass" loading="lazy" decoding="async"></a></details></li>
+      <li>Вернитесь на главный экран стрелкой <strong>‹</strong>, если он не открылся автоматически. Нажмите большую круглую кнопку <strong>Tap to connect</strong>. При первом запуске разрешите iOS добавить конфигурацию VPN.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/connecting.png" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/connecting.png" alt="Подключение запущено, проверка интернета продолжается" loading="lazy" decoding="async"></a></details></li>
+      <li>Дождитесь зелёной надписи <strong>Internet OK</strong>. Надпись <strong>Checking internet…</strong> означает, что проверка ещё идёт. Само сообщение <strong>Connected successfully!</strong> ещё не заменяет результат проверки интернета.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/internet-ok.png" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/internet-ok.png" alt="Результат успешной проверки: Internet OK" loading="lazy" decoding="async"></a></details></li>
     </ol>
   </details>
 

@@ -8,7 +8,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src https://194.226.139.8; base-uri 'none'; form-action 'none'">
   <title>Кабинет доступа</title>
   <link rel="stylesheet" href="./site.css?v=guides-4">
-  <script src="./cabinet.js?v=direct-connection-1" type="module"></script>
+  <script src="./cabinet.js?v=guides-copy-1" type="module"></script>
 </head>
 <body class="portal">
   <main class="portal-shell">
@@ -29,12 +29,14 @@
         <p>Окончание доступа <strong id="deadline"></strong></p>
         <p id="config-missing" class="portal-notice" hidden>Ссылка ещё не назначена. Обратитесь к администратору.</p>
         <div id="primary-config" class="portal-form" hidden>
+          <div id="connection-intro" hidden>
+            <h2>Выберите способ подключения</h2>
+            <p>Рекомендуем подписку: добавьте её один раз и обновляйте настройки в приложении при замене сервера. Для добавления одного подключения используйте раздел «Прямое подключение» ниже.</p>
+          </div>
           <div id="subscription-block" class="primary-method" hidden>
             <p class="method-label">Основной способ</p>
             <h2>Подписка</h2>
-            <p>Есть два способа подключения: подписка и прямое подключение. Достаточно выбрать один. Прямая ссылка — в блоке «Прямое подключение» ниже.</p>
-            <p>Это постоянная ссылка для загрузки настроек VPN.</p>
-            <p>Добавьте её один раз. При замене сервера обновите подписку в приложении — ссылка останется прежней.</p>
+            <p>Постоянная ссылка для загрузки настроек VPN.</p>
             <div>
               <button type="button" data-copy="subscription">Копировать ссылку подписки</button>
               <p class="action-feedback" role="status"></p>
@@ -45,7 +47,7 @@
             </details>
             <div id="subscription-guide" class="connection-guide">
               <h3>Инструкция для подключения подписки</h3>
-              <p>Скопируйте ссылку подписки кнопкой выше и выберите своё устройство.</p>
+              <p>Выберите своё устройство и следуйте инструкции.</p>
 
 
   <details data-platform="ios">
@@ -56,9 +58,9 @@
       <li>На главном экране V2RC нажмите верхнюю строку с глобусом <strong>«Please import a config first»</strong>. Если подключение уже добавлено, в этой строке будет его название.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/home-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/home-annotated.svg" alt="Главный экран V2RC: строка выбора подключения" loading="lazy" decoding="async"></a></details></li>
       <li>На экране <strong>Config List</strong> нажмите <strong>Import Config</strong> («Импортировать»). Если список уже заполнен, нажмите <strong>+</strong> справа сверху.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/import-list-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/import-list-annotated.svg" alt="Config List: кнопка Import Config" loading="lazy" decoding="async"></a></details></li>
       <li>На экране <strong>Import Config</strong> выберите <strong>Subscription</strong>. В поле <strong>Subscription Name</strong> введите название, например <strong>ArcPass</strong>. В поле <strong>Subscription URL</strong> вставьте скопированную ссылку подписки. Нажмите внизу <strong>Import Subscription</strong> и дождитесь загрузки списка подключений.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/subscription-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/subscription-annotated.svg" alt="Subscription: название, URL и кнопка импорта" loading="lazy" decoding="async"></a></details></li>
-      <li>В списке <strong>Config List</strong> нажмите самое верхнее подключение — <strong>Connection</strong>.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/subscription-list-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/subscription-list-annotated.svg" alt="Выберите верхнее подключение Connection" loading="lazy" decoding="async"></a></details></li>
+      <li>В списке <strong>Config List</strong> выберите подключение <strong>Connection</strong>.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/subscription-list-annotated.svg?v=guides-copy-1" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/subscription-list-annotated.svg?v=guides-copy-1" alt="Выберите подключение Connection" loading="lazy" decoding="async"></a></details></li>
       <li>Вернитесь на главный экран стрелкой <strong>‹</strong> слева сверху, если он не открылся автоматически. Проверьте, что в верхней строке выбрано <strong>Connection</strong>. Нажмите большую круглую кнопку <strong>Tap to connect</strong>. При первом запуске разрешите iOS добавить конфигурацию VPN.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/connect-button-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/connect-button-annotated.svg" alt="Нажмите большую кнопку Tap to connect" loading="lazy" decoding="async"></a></details></li>
-      <li>Дождитесь зелёной надписи <strong>Internet OK</strong> под кнопкой. Подключение готово. Если отображается только <strong>Connected</strong>, дождитесь результата проверки интернета.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/internet-ok-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/internet-ok-annotated.svg" alt="Успешная проверка: Internet OK" loading="lazy" decoding="async"></a></details></li>
+      <li>Дождитесь надписи <strong>Internet OK</strong> и откройте любой сайт для проверки.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/internet-ok-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/internet-ok-annotated.svg" alt="Успешная проверка: Internet OK" loading="lazy" decoding="async"></a></details></li>
     </ol>
   </details>
 
@@ -83,7 +85,7 @@
   <details data-platform="windows">
     <summary>Windows · v2rayN</summary>
     <ol>
-      <li><a href="https://github.com/2dust/v2rayN/releases/download/7.25.6/v2rayN-windows-64.zip" download>Скачать v2rayN для Windows x64 (ZIP)</a>, распакуйте архив и запустите приложение от имени администратора.</li>
+      <li><a href="https://github.com/2dust/v2rayN/releases/download/7.25.6/v2rayN-windows-64.zip" download>Скачать v2rayN для Windows x64 (ZIP)</a>, распакуйте архив и запустите приложение от имени администратора. Если v2rayN уже установлен, откройте его от имени администратора.</li>
       <li>В кабинете нажмите <strong>«Копировать ссылку подписки»</strong>. Перейдите в v2rayN.</li>
       <li>В верхнем меню нажмите <strong>Subscription Group</strong>.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rayn/menu-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rayn/menu-annotated.svg" alt="v2rayN: menu" loading="lazy" decoding="async"></a></details></li>
       <li>Выберите <strong>Subscription group settings</strong> («Настройки групп подписок»).<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rayn/settings-menu-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rayn/settings-menu-annotated.svg" alt="v2rayN: settings-menu" loading="lazy" decoding="async"></a></details></li>
@@ -91,7 +93,7 @@
       <li>В поле <strong>Remarks</strong> введите название группы, например <strong>arcpass</strong>. В поле <strong>URL (optional)</strong> вставьте скопированную ссылку подписки. Оставьте <strong>Enable update</strong> включённым, а в <strong>Automatic update interval (minutes)</strong> задайте <strong>60</strong>. Остальные поля менять не нужно. Нажмите <strong>Confirm</strong> и закройте окно настроек групп.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rayn/group-form-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rayn/group-form-annotated.svg" alt="v2rayN: group-form" loading="lazy" decoding="async"></a></details></li>
       <li>В главном окне выберите вкладку созданной группы — в примере <strong>arcpass</strong> рядом с <strong>All</strong>.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rayn/group-tab-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rayn/group-tab-annotated.svg" alt="v2rayN: group-tab" loading="lazy" decoding="async"></a></details></li>
       <li>Снова откройте <strong>Subscription Group</strong> и нажмите <strong>Update subscriptions without proxy</strong>. Дождитесь появления подключений в списке.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rayn/update-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rayn/update-annotated.svg" alt="v2rayN: update" loading="lazy" decoding="async"></a></details></li>
-      <li>Выберите верхнее подключение <strong>Connection</strong> и сделайте его активным: нажмите <strong>Enter</strong> или дважды щёлкните по строке.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rayn/profiles-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rayn/profiles-annotated.svg" alt="v2rayN: profiles" loading="lazy" decoding="async"></a></details></li>
+      <li>Выберите подключение <strong>Connection</strong> и сделайте его активным: нажмите <strong>Enter</strong> или дважды щёлкните по строке.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rayn/profiles-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rayn/profiles-annotated.svg" alt="v2rayN: profiles" loading="lazy" decoding="async"></a></details></li>
       <li>Внизу окна в меню <strong>Routing</strong> выберите вариант с <strong>(Global)</strong>. Включите переключатель <strong>Enable Tun</strong>. Если потребуется, подтвердите запрос Windows; приложение должно быть запущено от имени администратора.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rayn/tun-routing-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rayn/tun-routing-annotated.svg" alt="v2rayN: tun-routing" loading="lazy" decoding="async"></a></details></li>
       <li>Откройте сайт в браузере и проверьте доступ к интернету. После замены сервера обновляйте эту же подписку через <strong>Subscription Group → Update subscriptions without proxy</strong>. Повторно добавлять URL не нужно.</li>
     </ol>
@@ -117,20 +119,20 @@
               </details>
               <div id="connection-guide" class="connection-guide" hidden>
                 <h3>Инструкция для прямого подключения</h3>
-                <p>Скопируйте прямую ссылку кнопкой выше и выберите своё устройство.</p>
+                <p>Выберите своё устройство и следуйте инструкции.</p>
 
 
   <details data-platform="ios">
     <summary>iPhone / iPad · V2RC</summary>
     <ol>
       <li><a href="https://apps.apple.com/ru/app/v2rc/id6748362312" target="_blank" rel="noopener noreferrer">Установите V2RC из App Store</a> или откройте уже установленное приложение.</li>
-      <li>В кабинете раскройте блок <strong>«Прямое подключение»</strong> и нажмите <strong>«Копировать ссылку подключения»</strong>. Откройте V2RC.</li>
+      <li>Нажмите <strong>«Копировать ссылку подключения»</strong>. Откройте V2RC.</li>
       <li>На главном экране нажмите верхнюю строку с глобусом <strong>Please import a config first</strong> (или название уже выбранного подключения).<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/home-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/home-annotated.svg" alt="Главный экран: откройте список подключений" loading="lazy" decoding="async"></a></details></li>
       <li>На экране <strong>Config List</strong> нажмите <strong>Import Config</strong>. Если подключения уже есть, нажмите <strong>+</strong> справа сверху.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/import-list-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/import-list-annotated.svg" alt="Нажмите Import Config" loading="lazy" decoding="async"></a></details></li>
       <li>Выберите <strong>URL Import</strong>. В поле <strong>Config Name</strong> введите название, например <strong>arcpass</strong>. В поле <strong>Config URL</strong> вставьте скопированную <strong>прямую ссылку</strong>. Нажмите <strong>Add Config</strong>. Для этого способа не выбирайте Subscription.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/url-import-annotated.svg?v=direct-connection-1" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/url-import-annotated.svg?v=direct-connection-1" alt="URL Import: имя, прямая ссылка и Add Config" loading="lazy" decoding="async"></a></details></li>
       <li>В списке <strong>Config List</strong> нажмите добавленное подключение с указанным вами названием — в примере <strong>arcpass</strong>.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/ordinary-list-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/ordinary-list-annotated.svg" alt="Выберите добавленное подключение arcpass" loading="lazy" decoding="async"></a></details></li>
       <li>Вернитесь на главный экран стрелкой <strong>‹</strong>, если он не открылся автоматически. Нажмите большую круглую кнопку <strong>Tap to connect</strong>. При первом запуске разрешите iOS добавить конфигурацию VPN.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/connecting-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/connecting-annotated.svg" alt="Подключение запущено, проверка интернета продолжается" loading="lazy" decoding="async"></a></details></li>
-      <li>Дождитесь зелёной надписи <strong>Internet OK</strong>. Надпись <strong>Checking internet…</strong> означает, что проверка ещё идёт. Само сообщение <strong>Connected successfully!</strong> ещё не заменяет результат проверки интернета.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/internet-ok-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/internet-ok-annotated.svg" alt="Результат успешной проверки: Internet OK" loading="lazy" decoding="async"></a></details></li>
+      <li>Дождитесь надписи <strong>Internet OK</strong> и откройте любой сайт для проверки.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rc/internet-ok-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/internet-ok-annotated.svg" alt="Результат успешной проверки: Internet OK" loading="lazy" decoding="async"></a></details></li>
     </ol>
   </details>
 
@@ -140,7 +142,7 @@
     <p class="muted">Инструкция для v2rayNG 2.3.15. В других версиях названия и расположение кнопок могут отличаться.</p>
     <ol>
       <li><a href="https://github.com/2dust/v2rayNG/releases/download/2.3.15/v2rayNG_2.3.15_universal.apk" download>Скачать v2rayNG для Android (APK)</a>. Откройте скачанный APK и установите приложение. Если v2rayNG уже установлен, просто откройте его.</li>
-      <li>В кабинете раскройте блок <strong>«Прямое подключение»</strong> и нажмите <strong>«Копировать ссылку подключения»</strong>. Перейдите в v2rayNG.</li>
+      <li>Нажмите <strong>«Копировать ссылку подключения»</strong>. Перейдите в v2rayNG.</li>
       <li>Нажмите <strong>+</strong> справа сверху → <strong>«Импорт из буфера обмена»</strong> (Import from Clipboard).<details class="guide-picture"><summary>Показать скриншот: Открыть импорт</summary><a href="./guides/v2rayng/open-import-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rayng/open-import-annotated.svg" alt="Открыть импорт" loading="lazy" decoding="async"></a></details><details class="guide-picture"><summary>Показать скриншот: Импортировать из буфера обмена</summary><a href="./guides/v2rayng/clipboard-import-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rayng/clipboard-import-annotated.svg" alt="Импортировать из буфера обмена" loading="lazy" decoding="async"></a></details></li>
       <li>Откройте вкладку <strong>Default</strong> (или <strong>«Все»</strong>, если она отображается) и нажмите добавленный профиль <strong>Connection</strong>.<details class="guide-picture"><summary>Показать скриншот: Найти импортированный профиль</summary><a href="./guides/v2rayng/ordinary-profile-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rayng/ordinary-profile-annotated.svg" alt="Найти импортированный профиль" loading="lazy" decoding="async"></a></details></li>
       <li>Нажмите кнопку запуска <strong>▶</strong> внизу справа и подтвердите системный запрос Android на создание VPN-подключения. Откройте сайт в браузере, чтобы проверить интернет.<details class="guide-picture"><summary>Показать скриншот: Запустить VPN</summary><a href="./guides/v2rayng/start-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rayng/start-annotated.svg" alt="Запустить VPN" loading="lazy" decoding="async"></a></details><details class="guide-picture"><summary>Показать скриншот: Проверить соединение</summary><a href="./guides/v2rayng/connection-status-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rayng/connection-status-annotated.svg" alt="Проверить соединение" loading="lazy" decoding="async"></a></details></li>
@@ -152,8 +154,8 @@
   <details data-platform="windows">
     <summary>Windows · v2rayN</summary>
     <ol>
-      <li><a href="https://github.com/2dust/v2rayN/releases/download/7.25.6/v2rayN-windows-64.zip" download>Скачать v2rayN для Windows x64 (ZIP)</a>, распакуйте архив и запустите приложение от имени администратора.</li>
-      <li>В кабинете раскройте блок <strong>«Прямое подключение»</strong> и нажмите <strong>«Копировать ссылку подключения»</strong>. Вернитесь в v2rayN.</li>
+      <li><a href="https://github.com/2dust/v2rayN/releases/download/7.25.6/v2rayN-windows-64.zip" download>Скачать v2rayN для Windows x64 (ZIP)</a>, распакуйте архив и запустите приложение от имени администратора. Если v2rayN уже установлен, откройте его от имени администратора.</li>
+      <li>Нажмите <strong>«Копировать ссылку подключения»</strong>. Вернитесь в v2rayN.</li>
       <li>В верхнем меню нажмите <strong>Configuration → Import Share Links from clipboard</strong> («Импортировать ссылки из буфера обмена»). Вместо меню можно нажать <strong>Ctrl+V</strong> в главном окне v2rayN.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rayn/clipboard-import-annotated.svg?v=direct-connection-1" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rayn/clipboard-import-annotated.svg?v=direct-connection-1" alt="v2rayN: импорт и подключение прямой ссылки" loading="lazy" decoding="async"></a></details></li>
       <li>Выберите вкладку <strong>All</strong>, чтобы увидеть добавленное подключение. Найдите новую строку <strong>Connection</strong> и сделайте её активной: нажмите <strong>Enter</strong> или дважды щёлкните по строке. При импорте прямой ссылки добавляется одно подключение; на скриншоте показан общий вид списка.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rayn/profiles-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rayn/profiles-annotated.svg" alt="v2rayN: импорт и подключение прямой ссылки" loading="lazy" decoding="async"></a></details></li>
       <li>Внизу окна в меню <strong>Routing</strong> выберите вариант с <strong>(Global)</strong>. Включите переключатель <strong>Enable Tun</strong>. Подтвердите запрос Windows, если он появится. Приложение должно быть запущено от имени администратора.<details class="guide-picture"><summary>Показать скриншот</summary><a href="./guides/v2rayn/tun-routing-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rayn/tun-routing-annotated.svg" alt="v2rayN: импорт и подключение прямой ссылки" loading="lazy" decoding="async"></a></details></li>

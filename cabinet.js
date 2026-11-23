@@ -82,6 +82,7 @@ function start() {
         byId("config").value = data?.config ?? "";
         if (byId("subscription")) byId("subscription").value = data?.subscription ?? "";
         if (byId("subscription-block")) byId("subscription-block").hidden = !data?.subscription;
+        byId("connection-intro").hidden = !data?.subscription;
         byId("problem-report").hidden = !data;
         byId("connection-guide").hidden = true;
         if (!data) { showAction(reportFeedback); notice("problem-cooldown", ""); return; }

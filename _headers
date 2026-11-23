@@ -3,3 +3,6 @@
   Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src https://194.226.139.8; base-uri 'none'; frame-ancestors 'none'; form-action 'none'
   Referrer-Policy: no-referrer
   X-Content-Type-Options: nosniff
+
+/guides/*
+  Content-Security-Policy: default-src 'none'; img-src data:;

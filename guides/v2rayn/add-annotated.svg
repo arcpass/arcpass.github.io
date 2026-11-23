@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="102" height="61.7" viewBox="0 0 102 61.7">
+<title>Подсказки к шагу подключения VPN</title>
+<rect width="100%" height="100%" fill="#101820"/>
+<text x="1.8" y="5.1" fill="#ffe082" font-family="Arial,sans-serif" font-size="3.5">1. Нажмите Add</text>
+<image y="8.7" width="102" height="53" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGYAAAA1CAYAAACzxZ47AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJoSURBVHhe7ZuhjxpBFId/238AR0LCNcGAxEI2JDgEi8RUcK6OmqsDCY4zV0MaMBUV1wQDpo6EbBaFL6gLDo2nO8vQJe02S9PSeWx+X7LJvHkEMd/Mm2EzWLlc7gAiCsuy8Eq3iTAoRigUIxSKEQrFCIVihEIxQqEYg6TTad36FYoRCsUIhWKEQjFCoRihUIxQKEYoFCMUihEKxQjFiJjhcIjJZKIjEoURMeodUSaT0ZEZDs4A3nMb+UP0lYe4/LVJVCk7HPJoP3vwBo7uuV2StccUaqhgi61dhWNopv8rEiWmUKsAiy4+uTaqDd15o1z1Xlk2m0WxWNRRSLvdRiqVQq/X0z0h6/Uam81GR5ejyti7L/73dZt4yj9i2XrBffMJa8vSeQePyw7sINJsP//4TFz+Gqi9drfb6ShE3Su7qph6vY5ut6ujyxiPxxiNRjq6HLVZn2R8Q8Mf5BZe7pv4sA4HHf0S3s+Og+wMPHReHwf++Pnf502IuWopU7NfDfTPz36/D/JRudVqFeT+lEbVxnbxNRhEy5ph7t6hUiuckrD92f9xegwV07mrWz5xeQMYuSKrfsOo43K5XNY9f0dkGQpw/UXwgGkjorSdr7CYfOJWzH9DzfhAQimQrZ5Sqe/36EPAdA737g3e6gNBsB+1zjTG5Q2QCDGqjMGdY3Y2s4/lDLB9M6r90Pc1dZbwPA/LpX9IWISlKi5vgkSUslsl+aUsgfD/MQbhirlBKEYoFCMUihEKxQiFYoRCMUKhGKFQjFAoRigUY5Co1zEnKEYoFCMUihEKxQiFYoRCMUKhGKFQjFAoRiTAdxAK/u6fmyFrAAAAAElFTkSuQmCC"/>
+<rect x="12" y="16.7" width="77" height="36" rx="1.2" fill="none" stroke="#ffb300" stroke-width="2.0"/>
+<circle cx="14.4" cy="15.9" r="2.4" fill="#ffb300" stroke="#101820" stroke-width="1.0"/>
+<text x="14.4" y="15.9" dominant-baseline="central" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="3.4" fill="#101820">1</text>
+</svg>

@@ -187,7 +187,7 @@ function start() {
                 await navigator.clipboard.writeText(field.value);
                 const message = button.dataset.copy === "subscription"
                     ? "Подписка скопирована. Добавьте её по URL по инструкции в этом блоке."
-                    : "Обычная ссылка скопирована. Импортируйте её из буфера обмена по инструкции в этом блоке.";
+                    : "Прямая ссылка скопирована. Импортируйте её из буфера обмена по инструкции в этом блоке.";
                 showAction(feedback, message, "success");
                 reset = setTimeout(() => showAction(feedback), 5000);
             } catch {

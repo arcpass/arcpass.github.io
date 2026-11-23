@@ -1,10 +1,17 @@
 const API = "/api/cabinet";
+// Embedded iOS browsers do not all support AbortSignal.timeout.
+export async function cabinetFetch(url, options = {}, send = fetch, timeout = 25000) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeout);
+    try { return await send(url, { ...options, signal: controller.signal }); }
+    finally { clearTimeout(timer); }
+}
 export async function chooseCabinet(primary, send = fetch) {
     const healthy = async base => {
         try {
-            const response = await send(base + "/health", {
-                cache: "no-store", credentials: "omit", redirect: "error", signal: AbortSignal.timeout(3500),
-            });
+            const response = await cabinetFetch(base + "/health", {
+                cache: "no-store", credentials: "omit", redirect: "error",
+            }, send, 12000);
             return response.ok && (await response.json()).status === "ok";
         } catch {
             return false;
@@ -51,9 +58,8 @@ function start() {
             headers.Authorization = `Bearer ${session}`;
         }
         try {
-            const response = await fetch(backend + path, {
+            const response = await cabinetFetch(backend + path, {
                 method, body, headers, cache: "no-store", credentials: "omit", redirect: "error",
-                signal: AbortSignal.timeout(25000),
             });
             const data = await response.json();
             if (!response.ok) throw new CabinetError(response.status, data.error ?? "Не удалось выполнить запрос.");
@@ -100,14 +106,22 @@ function start() {
         event.preventDefault();
         if (loginButton.disabled) return;
         const code = accessCode.value;
-        accessCode.value = "";
         loginButton.disabled = true;
         notice("feedback", "Подключаемся к кабинету…");
         try {
-            backend = await chooseCabinet(primary);
-            if (!backend) throw new CabinetError(0, "Кабинет временно недоступен. Повторите попытку.");
+            // Login is the availability check; a separate short health timeout
+            // must not prevent login on a resumed mobile connection.
+            backend = `${primary}${API}`;
             ({ session } = await api("/login", { method: "POST", body: new URLSearchParams({ password: code }) }));
-            render(await api("/account"));
+            let account;
+            try { account = await api("/account"); }
+            catch (error) {
+                if (error.status !== 0) throw error;
+                // Repeat only this read, never replay a mutation automatically.
+                account = await api("/account");
+            }
+            accessCode.value = "";
+            render(account);
             notice("feedback", "");
         } catch (error) {
             session = null;

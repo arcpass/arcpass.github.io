@@ -111,3 +111,10 @@ a:hover {
 .guide-picture { margin: .65rem 0 1rem; }
 .guide-picture summary { cursor: pointer; font-weight: 600; }
 .guide-picture img { display: block; width: 100%; max-width: 300px; height: auto; margin-top: .6rem; border-radius: .65rem; }
+
+/* Keep each screenshot above its step separator, including when expanded. */
+.connection-guide details.guide-picture {
+  border-top: 0;
+  border-bottom: 1px solid #d2ddd7;
+  padding: .35rem 0 .85rem;
+}

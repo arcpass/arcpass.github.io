@@ -118,3 +118,25 @@ a:hover {
   border-bottom: 1px solid #d2ddd7;
   padding: .35rem 0 .85rem;
 }
+
+/* Expanded reading notice before connection methods. */
+details.important-information {
+  margin: 0 0 1.2rem;
+  padding: 0;
+  border: 1px solid #d5ac50;
+  border-radius: .75rem;
+  background: #fff9e9;
+  color: #403419;
+}
+.important-information > summary {
+  padding: .9rem 1rem;
+  min-height: 44px;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-weight: 750;
+}
+.important-information[open] > summary { border-bottom: 1px solid #e5cf9b; }
+.important-information h3 { margin: 1rem 0 .5rem; font-size: 1rem; }
+.important-information p { line-height: 1.55; }
+.important-information a { color: #684a06; }
+.portal details.important-information { padding: 0; border: 1px solid #d5ac50; }

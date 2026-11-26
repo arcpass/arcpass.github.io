@@ -7,7 +7,7 @@
   <meta name="cabinet-origin" content="https://194.226.139.8">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src https://194.226.139.8; base-uri 'none'; form-action 'none'">
   <title>Кабинет доступа</title>
-  <link rel="stylesheet" href="./site.css?v=guides-4">
+  <link rel="stylesheet" href="./site.css?v=important-1">
   <script src="./cabinet.js?v=guides-copy-1" type="module"></script>
 </head>
 <body class="portal">
@@ -29,6 +29,44 @@
         <p>Окончание доступа <strong id="deadline"></strong></p>
         <p id="config-missing" class="portal-notice" hidden>Ссылка ещё не назначена. Обратитесь к администратору.</p>
         <div id="primary-config" class="portal-form" hidden>
+
+          <details id="important-information" class="important-information" open>
+            <summary>Важно — обязательно к прочтению</summary>
+            <div class="method-content">
+              <h3>Если подключение перестало работать</h3>
+              <p>Адреса подключений могут меняться раз в несколько дней. Сама ссылка подписки остаётся прежней, но настройки внутри неё нужно обновлять в VPN-приложении.</p>
+              <p>Если вы подключились через подписку и VPN перестал работать, нажмите <strong>«Обновить подписку»</strong> в приложении, дождитесь загрузки подключений, выберите нужное и подключитесь снова. Ниже показано, где найти обновление на вашем устройстве.</p>
+              <div class="connection-guide">
+
+                <details data-platform="ios">
+                  <summary>iPhone / iPad · V2RC</summary>
+                  <p>На главном экране нажмите строку с названием подключения. На экране <strong>Config List</strong> нажмите значок <strong>облака со стрелкой вниз</strong> вверху, чтобы обновить подписку. Затем выберите подключение и включите VPN снова.</p>
+                  <details class="guide-picture"><summary>Показать скриншот обновления на iOS</summary><a href="./guides/v2rc/subscription-list.png" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rc/subscription-list.png" alt="V2RC: значок облака со стрелкой вниз вверху экрана Config List" loading="lazy" decoding="async"></a></details>
+                </details>
+
+
+                <details data-platform="android">
+                  <summary>Android · v2rayNG</summary>
+                  <p>Выберите вкладку своей подписки <strong>ArcPass</strong>. Нажмите <strong>⋮ → «Обновить подписку»</strong>. Если появится окно дополнительных действий, оставьте только обновление подписки и нажмите <strong>«ОК»</strong>.</p>
+                  <details class="guide-picture"><summary>Показать скриншот обновления на Android</summary><a href="./guides/v2rayng/refresh-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rayng/refresh-annotated.svg" alt="v2rayNG: меню обновления подписки" loading="lazy" decoding="async"></a></details>
+                </details>
+
+
+                <details data-platform="windows">
+                  <summary>Windows · v2rayN</summary>
+                  <p>В меню <strong>Subscription Group</strong> нажмите <strong>Update subscriptions without proxy</strong> («Обновить подписки без прокси»). Дождитесь обновления списка, выберите подключение и включите VPN снова.</p>
+                  <details class="guide-picture"><summary>Показать скриншот обновления на Windows</summary><a href="./guides/v2rayn/update-annotated.svg" target="_blank" rel="noopener noreferrer"><img src="./guides/v2rayn/update-annotated.svg" alt="v2rayN: команда Update subscriptions without proxy" loading="lazy" decoding="async"></a></details>
+                </details>
+
+              </div>
+              <h3>Если обновление не помогло</h3>
+              <p>Зайдите на этот сайт, прокрутите страницу ниже и нажмите <a href="#problem-report">«Сообщить о проблеме»</a>. Эта кнопка отправляет уведомление администратору о том, что подключение не работает.</p>
+              <h3>Если используете прямую ссылку</h3>
+              <p>Прямая ссылка подключения сама не обновляется. Если она перестала работать, зайдите на этот сайт, откройте раздел «Прямое подключение», нажмите <strong>«Копировать ссылку подключения»</strong> и заново импортируйте её в VPN-приложение.</p>
+              <h3>Резервное подключение Relay</h3>
+              <p><strong>Connection-Relay</strong> — резервное подключение. Оно самое медленное, но самое отказоустойчивое. Используйте его, если другие подключения не работают и оно есть в списке вашей подписки.</p>
+            </div>
+          </details>
           <div id="connection-intro" hidden>
             <h2>Выберите способ подключения</h2>
             <p>Рекомендуем подписку: добавьте её один раз и обновляйте настройки в приложении при замене сервера. Для добавления одного подключения используйте раздел «Прямое подключение» ниже.</p>
